@@ -101,8 +101,34 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    [SerializeField]
+    private bool _blackholeIsActive = false;
+
+    public bool BlackholeIsActive { 
+        get {
+            return _blackholeIsActive;
+        }
+        private set {
+            blackholeCurrentCooldown = 0;
+            _blackholeIsActive = value;
+        }
+    }
+
     Rigidbody2D rb;
     Animator animator;
+    
+    public GameObject blackholePrefab;
+    GameObject blackhole;
+
+    public float blackholeMaxHeat = 5f;
+    public float blackholeHeat = 0f;
+    public float blackholeCooldown = 10f;
+    public float blackholeCurrentCooldown = 0f;
+    public float blackholeRechargeRate = 1f;
+    private bool blackholeCall;
+    private bool blackholeEnter;
+
+    [SerializeField] OverheatBar overheatBar;
 
     private void Awake()
     {
@@ -111,6 +137,7 @@ public class PlayerController : MonoBehaviour
         touchingDirections = GetComponent<TouchingDirections>();
         damageable = GetComponent<Damageable>();
         gravity = GetComponent<AffectedByGravity>();
+        overheatBar = GetComponentInChildren<OverheatBar>();
     }
 
     // Start is called before the first frame update
@@ -122,7 +149,29 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (BlackholeIsActive && blackholeCurrentCooldown == 0) {
+            blackholeHeat += Time.deltaTime;
+            if (blackholeHeat >= blackholeMaxHeat) {
+                BlackholeIsActive = false;
+                Destroy(blackhole);
+                blackholeCurrentCooldown = blackholeCooldown;
+                blackholeHeat = 0;
+                blackholeEnter = !blackholeEnter;
+            }
+            Vector3 mousePos = Input.mousePosition;
+            mousePos = Camera.main.ScreenToWorldPoint(mousePos);
+            mousePos.z = 0;
+            blackhole.transform.position = mousePos;
+        }
+        else {
+            if (blackholeHeat > 0)
+                blackholeHeat -= Time.deltaTime * blackholeRechargeRate;
+        }
+
+        if (blackholeCurrentCooldown > 0)
+            blackholeCurrentCooldown -= Time.deltaTime;
+
+        overheatBar.UpdateOverheatBar(blackholeHeat, blackholeMaxHeat);
     }
 
     private void FixedUpdate()
@@ -190,5 +239,23 @@ public class PlayerController : MonoBehaviour
                 obj.OnGravityWasSwitched(gravityCooldown);
             }
         }
+    }
+
+    public void OnBlackhole(InputAction.CallbackContext context) {
+        if (blackholeCurrentCooldown <= 0) {
+            if (blackholeCall == blackholeEnter) {
+                blackholeEnter = !blackholeEnter;
+                BlackholeIsActive = !BlackholeIsActive;
+
+                if (BlackholeIsActive) {
+                    blackhole = Instantiate(blackholePrefab,  Input.mousePosition, blackholePrefab.transform.rotation);
+                }
+                else {
+                    Destroy(blackhole);
+                }
+            }
+        }
+
+        blackholeCall = !blackholeCall;
     }
 }

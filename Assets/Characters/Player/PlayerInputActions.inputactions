@@ -58,6 +58,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Blackhole",
+                    "type": "Button",
+                    "id": "67f45e22-58b0-4873-b949-4afb79aeb0bd",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Hold(duration=10)",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -245,6 +254,17 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "GravitySwitch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4071d6c2-8ab2-46fc-a8e1-7219b29fd567",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Blackhole",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
