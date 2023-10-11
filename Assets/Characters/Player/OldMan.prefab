@@ -588,14 +588,13 @@ MonoBehaviour:
   _isJumping: 0
   _isFacingRight: 1
   _blackholeIsActive: 0
-  blackholePrefab: {fileID: 0}
+  blackholePrefab: {fileID: 6645961308256839148, guid: 8c988b816c396f840be747a86b5b4033, type: 3}
   blackholeMaxHeat: 5
   blackholeHeat: 0
   blackholeCooldown: 10
   blackholeCurrentCooldown: 0
-  blackholeSpamCooldown: 0.5
-  currentBlackholeSpamCooldown: 0
   blackholeRechargeRate: 1.5
+  blackholeRange: 5
   overheatBar: {fileID: 0}
 --- !u!70 &5585646396079231953
 CapsuleCollider2D:

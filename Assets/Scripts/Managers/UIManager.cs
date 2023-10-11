@@ -12,7 +12,13 @@ public class UIManager : MonoBehaviour
     public Canvas gameCanvas;
 
     private void Awake() {
-        gameCanvas = FindObjectOfType<Canvas>();
+        Canvas[] canvases = FindObjectsOfType<Canvas>();
+        foreach (Canvas canvas in canvases) {
+            if (canvas.tag == "GameCanvas") {
+                gameCanvas = canvas;
+                return;
+            }
+        }
     }
 
     private void OnEnable() {

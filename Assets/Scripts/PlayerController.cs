@@ -125,6 +125,7 @@ public class PlayerController : MonoBehaviour
     public float blackholeCooldown = 10f;
     public float blackholeCurrentCooldown = 0f;
     public float blackholeRechargeRate = 1f;
+    public float blackholeRange = 5f;
     private bool blackholeCall;
     private bool blackholeEnter;
 
@@ -151,17 +152,7 @@ public class PlayerController : MonoBehaviour
     {
         if (BlackholeIsActive && blackholeCurrentCooldown == 0) {
             blackholeHeat += Time.deltaTime;
-            if (blackholeHeat >= blackholeMaxHeat) {
-                BlackholeIsActive = false;
-                Destroy(blackhole);
-                blackholeCurrentCooldown = blackholeCooldown;
-                blackholeHeat = 0;
-                blackholeEnter = !blackholeEnter;
-            }
-            Vector3 mousePos = Input.mousePosition;
-            mousePos = Camera.main.ScreenToWorldPoint(mousePos);
-            mousePos.z = 0;
-            blackhole.transform.position = mousePos;
+            BlackholeBehaviour();
         }
         else {
             if (blackholeHeat > 0)
@@ -174,9 +165,28 @@ public class PlayerController : MonoBehaviour
         overheatBar.UpdateOverheatBar(blackholeHeat, blackholeMaxHeat);
     }
 
+    private void BlackholeBehaviour() {
+        if (blackholeHeat >= blackholeMaxHeat) {
+                BlackholeIsActive = false;
+                Destroy(blackhole);
+                blackholeCurrentCooldown = blackholeCooldown;
+                blackholeHeat = 0;
+                blackholeEnter = !blackholeEnter;
+            }
+        else {
+            Vector3 mousePos = Input.mousePosition;
+            mousePos = Camera.main.ScreenToWorldPoint(mousePos);
+            mousePos.z = 0;
+            if ((transform.position - mousePos).magnitude <= blackholeRange)
+                blackhole.transform.position = mousePos;
+            else
+                blackhole.transform.position = transform.position + Vector3.Scale((mousePos - transform.position).normalized, new Vector3(blackholeRange, blackholeRange, 0));
+        }
+    }
+
     private void FixedUpdate()
     {
-        if (!damageable.IsHit)
+        //if (!damageable.IsHit)
             rb.velocity = new Vector2(moveInput.x * CurrentMoveSpeed, rb.velocity.y);
         animator.SetFloat(AnimationStrings.yVelocity, rb.velocity.y);
 
