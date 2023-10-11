@@ -394,6 +394,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3497459699585219976}
+  - {fileID: 677111779996018827}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1468461941628357474
@@ -588,7 +589,7 @@ MonoBehaviour:
   _isJumping: 0
   _isFacingRight: 1
   _blackholeIsActive: 0
-  blackholePrefab: {fileID: 6645961308256839148, guid: 8c988b816c396f840be747a86b5b4033, type: 3}
+  blackholePrefab: {fileID: 6411146366494313658}
   blackholeMaxHeat: 5
   blackholeHeat: 0
   blackholeCooldown: 10
@@ -843,3 +844,70 @@ RectTransform:
   m_AnchoredPosition: {x: 0.39899826, y: 0}
   m_SizeDelta: {x: -9.201, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1001 &343334866828241238
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1271922185589136342}
+    m_Modifications:
+    - target: {fileID: 983562274862563805, guid: 8c988b816c396f840be747a86b5b4033, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 35.687458
+      objectReference: {fileID: 0}
+    - target: {fileID: 983562274862563805, guid: 8c988b816c396f840be747a86b5b4033, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.0052517653
+      objectReference: {fileID: 0}
+    - target: {fileID: 983562274862563805, guid: 8c988b816c396f840be747a86b5b4033, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 983562274862563805, guid: 8c988b816c396f840be747a86b5b4033, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 983562274862563805, guid: 8c988b816c396f840be747a86b5b4033, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 983562274862563805, guid: 8c988b816c396f840be747a86b5b4033, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 983562274862563805, guid: 8c988b816c396f840be747a86b5b4033, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 983562274862563805, guid: 8c988b816c396f840be747a86b5b4033, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 983562274862563805, guid: 8c988b816c396f840be747a86b5b4033, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 983562274862563805, guid: 8c988b816c396f840be747a86b5b4033, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6645961308256839148, guid: 8c988b816c396f840be747a86b5b4033, type: 3}
+      propertyPath: m_Name
+      value: Blackhole
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8c988b816c396f840be747a86b5b4033, type: 3}
+--- !u!4 &677111779996018827 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 983562274862563805, guid: 8c988b816c396f840be747a86b5b4033, type: 3}
+  m_PrefabInstance: {fileID: 343334866828241238}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6411146366494313658 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6645961308256839148, guid: 8c988b816c396f840be747a86b5b4033, type: 3}
+  m_PrefabInstance: {fileID: 343334866828241238}
+  m_PrefabAsset: {fileID: 0}
