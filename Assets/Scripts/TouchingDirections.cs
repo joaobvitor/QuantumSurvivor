@@ -9,6 +9,7 @@ public class TouchingDirections : MonoBehaviour
     public float groundDistance = 0.05f;
     public float wallDistance = 0.2f;
     public float ceilingDistance = 0.05f;
+    public int startingFacingDirection = 1;
     CapsuleCollider2D touchingCol;
     RaycastHit2D[] groundHits = new RaycastHit2D[5];
     RaycastHit2D[] wallHits = new RaycastHit2D[5];
@@ -28,7 +29,7 @@ public class TouchingDirections : MonoBehaviour
         }
     }
 
-    private Vector2 wallCheckDirection => gameObject.transform.localScale.x > 0 ? Vector2.right : Vector2.left;
+    private Vector2 wallCheckDirection => startingFacingDirection * gameObject.transform.localScale.x > 0 ? Vector2.right : Vector2.left;
 
     [SerializeField]
     private bool _isOnWall = true;
