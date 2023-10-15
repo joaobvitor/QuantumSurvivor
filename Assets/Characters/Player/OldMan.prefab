@@ -525,6 +525,7 @@ MonoBehaviour:
   groundDistance: 0.05
   wallDistance: 0.2
   ceilingDistance: 0.05
+  startingFacingDirection: 1
   _isGrounded: 1
   _isOnWall: 1
   _isOnCeiling: 1
@@ -628,8 +629,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.05014801, y: -0.09452629}
-  m_Size: {x: 1.1976547, y: 1.8147402}
+  m_Offset: {x: -0.05014801, y: -0.12955117}
+  m_Size: {x: 1.1976547, y: 1.7446904}
   m_Direction: 0
 --- !u!114 &2197668579313056247
 MonoBehaviour:
