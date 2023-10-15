@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 7923630722207107139}
   - component: {fileID: 6239590556436057369}
   - component: {fileID: 4199952537725122894}
+  - component: {fileID: 5368398028168996655}
   m_Layer: 8
   m_Name: TankBot
   m_TagString: Untagged
@@ -189,7 +190,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravityCooldown: 0
-  _onCooldown: 0
 --- !u!114 &7923630722207107139
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -266,6 +266,19 @@ MonoBehaviour:
   attackZone: {fileID: 0}
   cliffDetectionZone: {fileID: 1131657818248178387}
   walkDirectionVector: {x: 0, y: 0}
+--- !u!114 &5368398028168996655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4093289324649270276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08a3ca7ab9d2572459e003ed11c5ca72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stopTimeDuration: 0
 --- !u!1 &5449859594383781878
 GameObject:
   m_ObjectHideFlags: 0

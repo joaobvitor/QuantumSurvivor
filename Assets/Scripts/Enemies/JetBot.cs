@@ -17,6 +17,7 @@ public class JetBot : MonoBehaviour
     Damageable damageable;
 
     AffectedByGravity gravity;
+     AffectedByTime time;
 
     public enum WalkableDirection { Right, Left }
 
@@ -65,6 +66,7 @@ public class JetBot : MonoBehaviour
         damageable = GetComponent<Damageable>();
         gravity = GetComponent<AffectedByGravity>();
         walkDirectionVector = new Vector2(-gameObject.transform.localScale.x, 0);
+        time = GetComponent<AffectedByTime>();
     }
 
     // Update is called once per frame
@@ -76,14 +78,16 @@ public class JetBot : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (touchingDirections.IsOnWall && touchingDirections.IsGrounded && CanMove)
-            FlipDirection();
-        
-        if (!damageable.IsHit) {
-            if (touchingDirections.IsOnWall && !touchingDirections.IsGrounded)
-                rb.velocity = new Vector2(0, rb.velocity.y);
-            else
-                rb.velocity = new Vector2(Mathf.Clamp(rb.velocity.x + (walkAcceleration * walkDirectionVector.x * Time.fixedDeltaTime), -maxSpeed, maxSpeed), rb.velocity.y);
+        if (!time.TimeIsStopped) {
+            if (touchingDirections.IsOnWall && touchingDirections.IsGrounded && CanMove)
+                FlipDirection();
+            
+            if (!damageable.IsHit) {
+                if (touchingDirections.IsOnWall && !touchingDirections.IsGrounded)
+                    rb.velocity = new Vector2(0, rb.velocity.y);
+                else
+                    rb.velocity = new Vector2(Mathf.Clamp(rb.velocity.x + (walkAcceleration * walkDirectionVector.x * Time.fixedDeltaTime), -maxSpeed, maxSpeed), rb.velocity.y);
+            }
         }
     }
 

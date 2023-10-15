@@ -8,7 +8,6 @@ public class AffectedByGravity : MonoBehaviour
     [SerializeField]
     private float gravityCooldown = 0f;
 
-    [SerializeField]
     private bool _onCooldown = false;
 
     public bool OnCooldown { 

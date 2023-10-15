@@ -67,6 +67,15 @@
                     "processors": "",
                     "interactions": "Hold(duration=10)",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "StopTime",
+                    "type": "Button",
+                    "id": "17014369-6242-48c4-9e17-9798d79b732e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -265,6 +274,17 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "Blackhole",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e8d38f31-bc8f-40ea-ab73-2e4f68d48e82",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "StopTime",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -10,6 +10,7 @@ public class FlyingBot : MonoBehaviour
     Animator animator;
     Rigidbody2D rb;
     Damageable damageable;
+    AffectedByTime time;
 
     int waypointNum = 0;
     Transform nextWaypoint;
@@ -37,6 +38,7 @@ public class FlyingBot : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         damageable = GetComponent<Damageable>();
+        time = GetComponent<AffectedByTime>();
     }
 
     void Start()
@@ -48,7 +50,7 @@ public class FlyingBot : MonoBehaviour
     void Update() {}
 
     private void FixedUpdate() {
-        if (damageable.IsAlive) {
+        if (damageable.IsAlive && !time.TimeIsStopped) {
             if (CanMove) {
                 Flight();
             }

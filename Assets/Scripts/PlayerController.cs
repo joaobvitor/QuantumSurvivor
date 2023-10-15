@@ -128,6 +128,12 @@ public class PlayerController : MonoBehaviour
     public float blackholeRange = 5f;
     private bool blackholeCall;
     private bool blackholeEnter;
+    
+    [SerializeField]
+    private float stopTimeDuration = 3f;
+    [SerializeField]
+    private float stopTimeCooldown = 15f;
+    private float stopTimeCurrentCooldown = 0;
 
     [SerializeField] OverheatBar overheatBar;
 
@@ -163,6 +169,9 @@ public class PlayerController : MonoBehaviour
             blackholeCurrentCooldown -= Time.deltaTime;
 
         overheatBar.UpdateOverheatBar(blackholeHeat, blackholeMaxHeat);
+
+        if (stopTimeCurrentCooldown > 0)
+            stopTimeCurrentCooldown -= Time.deltaTime;
     }
 
     private void BlackholeBehaviour() {
@@ -267,5 +276,17 @@ public class PlayerController : MonoBehaviour
         }
 
         blackholeCall = !blackholeCall;
+    }
+
+    public void OnStopTime(InputAction.CallbackContext context) {
+        Debug.Log("dadada");
+        if (context.started && stopTimeCurrentCooldown <= 0) {
+            AffectedByTime[] everythingAffected = FindObjectsOfType<AffectedByTime>();
+            foreach (var obj in everythingAffected) {
+                Debug.Log("dadada");
+                obj.OnTimeWasStopped(stopTimeDuration);
+            }
+            stopTimeCurrentCooldown = stopTimeCooldown;
+        }
     }
 }
