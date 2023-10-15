@@ -21,23 +21,30 @@ public class AffectedByTime : MonoBehaviour
     private float stopTimeDuration = 0f;
 
     Rigidbody2D rb;
+    Animator animator;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
     }
 
     private void FixedUpdate() {
         if (stopTimeDuration > 0) {
             stopTimeDuration -= Time.deltaTime;
             rb.velocity = Vector2.zero;
-            if (stopTimeDuration <= 0)
+            if (stopTimeDuration <= 0) {
                 TimeIsStopped = false;
+                if (animator != null) 
+                    animator.enabled = true;
+            }
         }
     }
 
     public void OnTimeWasStopped(float timeStopDurationToSet) {
         stopTimeDuration = timeStopDurationToSet;
         TimeIsStopped = true;
+        if (animator != null) 
+            animator.enabled = false;
     }
 }

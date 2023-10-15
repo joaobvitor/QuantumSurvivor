@@ -279,11 +279,9 @@ public class PlayerController : MonoBehaviour
     }
 
     public void OnStopTime(InputAction.CallbackContext context) {
-        Debug.Log("dadada");
         if (context.started && stopTimeCurrentCooldown <= 0) {
             AffectedByTime[] everythingAffected = FindObjectsOfType<AffectedByTime>();
             foreach (var obj in everythingAffected) {
-                Debug.Log("dadada");
                 obj.OnTimeWasStopped(stopTimeDuration);
             }
             stopTimeCurrentCooldown = stopTimeCooldown;
