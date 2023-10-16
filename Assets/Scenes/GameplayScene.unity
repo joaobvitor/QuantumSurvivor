@@ -2775,7 +2775,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravityCooldown: 0
-  _onCooldown: 0
 --- !u!1 &1644536287
 GameObject:
   m_ObjectHideFlags: 0
@@ -7886,10 +7885,6 @@ PrefabInstance:
     - target: {fileID: 1271922185589136342, guid: 4d633208c2f6a4b4ebf1d768fe3bf793, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1468461941628357474, guid: 4d633208c2f6a4b4ebf1d768fe3bf793, type: 3}
-      propertyPath: m_SortingOrder
-      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2337996035436732019, guid: 4d633208c2f6a4b4ebf1d768fe3bf793, type: 3}
       propertyPath: m_Name

@@ -7,6 +7,8 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Rigidbody2D), typeof(TouchingDirections), typeof(Damageable))]
 public class PlayerController : MonoBehaviour
 {
+    public UnityEvent<string, float> abilityUsed;
+
     public float walkSpeed = 5f;
     public float runSpeed = 8f;
     public float airSpeed = 4f;
@@ -181,6 +183,7 @@ public class PlayerController : MonoBehaviour
                 blackholeCurrentCooldown = blackholeCooldown;
                 blackholeHeat = 0;
                 blackholeEnter = !blackholeEnter;
+                abilityUsed?.Invoke("Blackhole", blackholeCooldown);
             }
         else {
             Vector3 mousePos = Input.mousePosition;
@@ -257,6 +260,7 @@ public class PlayerController : MonoBehaviour
             foreach (var obj in everythingAffected) {
                 obj.OnGravityWasSwitched(gravityCooldown);
             }
+            abilityUsed?.Invoke("GravitySwitch", gravityCooldown);
         }
     }
 
@@ -285,6 +289,7 @@ public class PlayerController : MonoBehaviour
                 obj.OnTimeWasStopped(stopTimeDuration);
             }
             stopTimeCurrentCooldown = stopTimeCooldown;
+            abilityUsed?.Invoke("StopTime", stopTimeCooldown);
         }
     }
 }
