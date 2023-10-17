@@ -548,6 +548,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walkAcceleration: 30
   maxSpeed: 5
+  chargeImpulse: 20
   attackZone: {fileID: 8627150549515115794}
   cliffDetectionZone: {fileID: 3615804997594273221}
   walkDirectionVector: {x: 0, y: 0}

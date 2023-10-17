@@ -20,4 +20,5 @@ internal class AnimationStrings
     internal static string isHit = "isHit";
     internal static string attackCooldown = "attackCooldown";
     internal static string hit = "hit";
+    internal static string isCharging = "isCharging";
 }

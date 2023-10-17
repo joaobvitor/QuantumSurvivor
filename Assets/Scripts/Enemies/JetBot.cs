@@ -7,6 +7,8 @@ public class JetBot : MonoBehaviour
 {
     public float walkAcceleration = 30f;
     public float maxSpeed = 3f;
+    [SerializeField] private float chargeImpulse = 20f;
+
     public DetectionZone attackZone;
     public DetectionZone cliffDetectionZone;
 
@@ -81,6 +83,15 @@ public class JetBot : MonoBehaviour
         }
     }
 
+    public bool IsCharging { 
+        get {
+            return animator.GetBool(AnimationStrings.isCharging);
+        }
+        private set {
+            animator.SetBool(AnimationStrings.isCharging, value);
+        }
+    }
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -103,7 +114,7 @@ public class JetBot : MonoBehaviour
     private void FixedUpdate()
     {
         if (!time.TimeIsStopped) {
-            if (touchingDirections.IsOnWall && touchingDirections.IsGrounded && CanMove)
+            if (touchingDirections.IsOnWall && (CanMove || IsCharging))
                 FlipDirection();
             
             if (!damageable.IsHit && CanMove) {
@@ -112,6 +123,8 @@ public class JetBot : MonoBehaviour
                 else
                     rb.velocity = new Vector2(Mathf.Clamp(rb.velocity.x + (walkAcceleration * walkDirectionVector.x * Time.fixedDeltaTime), -maxSpeed, maxSpeed), rb.velocity.y);
             }
+            else if (IsCharging)
+                rb.velocity = new Vector2(chargeImpulse * -transform.localScale.x, rb.velocity.y);
         }
     }
 
@@ -127,8 +140,12 @@ public class JetBot : MonoBehaviour
     }
 
     public void OnCliffDetected() {
-        if (touchingDirections.IsGrounded  && !gravity.OnCooldown) {
+        if (touchingDirections.IsGrounded  && !gravity.OnCooldown && !IsCharging) {
             FlipDirection();
         }
+    }
+
+    public void Charge() {
+        IsCharging = true;
     }
 }
