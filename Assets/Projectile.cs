@@ -7,6 +7,8 @@ public class Projectile : MonoBehaviour
     [SerializeField] private Vector2 moveSpeed = new Vector2(10f, 0);
     [SerializeField] private Vector2 knockback = new Vector2(0, 0);
     [SerializeField] private int damage = 20;
+    private bool hit;
+    
     Rigidbody2D rb;
     Animator animator;
 
@@ -24,9 +26,9 @@ public class Projectile : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision) {
         Damageable damageable = collision.GetComponent<Damageable>();
 
-        if (damageable != null) {
+        if (damageable != null && !hit) {
             knockback = transform.localScale.x > 0 ? knockback : Vector2.Scale(knockback, new Vector2(-1, 1));
-            bool gotHit = damageable.Hit(damage, knockback);
+            hit = damageable.Hit(damage, knockback);
         }
         rb.velocity = Vector2.zero;
         animator.SetBool(AnimationStrings.hit, true);
