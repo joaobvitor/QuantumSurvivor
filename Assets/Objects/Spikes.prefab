@@ -97,7 +97,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onTriggerEnter: 0
   onTriggerStay: 1
-  attackDamage: 10
+  attackDamage: 20
   knockback: {x: 0, y: 0}
 --- !u!1 &4235365162958482933
 GameObject:

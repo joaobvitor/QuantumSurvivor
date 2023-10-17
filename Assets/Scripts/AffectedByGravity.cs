@@ -36,6 +36,7 @@ public class AffectedByGravity : MonoBehaviour
 
     public void OnGravityWasSwitched(float gravityCooldownToSet) {
         rb.gravityScale = -rb.gravityScale;
+        rb.velocity = new Vector3(rb.velocity.x, 0);
         OnCooldown = true;
         gravityCooldown = gravityCooldownToSet;
         gameObject.transform.localScale = new Vector2(gameObject.transform.localScale.x, -gameObject.transform.localScale.y);

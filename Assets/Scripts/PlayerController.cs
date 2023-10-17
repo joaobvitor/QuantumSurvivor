@@ -11,8 +11,9 @@ public class PlayerController : MonoBehaviour
 
     public float walkSpeed = 5f;
     public float runSpeed = 8f;
-    public float airSpeed = 4f;
+    public float speed;
     public float jumpImpulse = 10f;
+
     public float gravityCooldown = 0.5f;
     Vector2 moveInput;
     TouchingDirections touchingDirections;
@@ -25,13 +26,14 @@ public class PlayerController : MonoBehaviour
                 if (IsMoving && !touchingDirections.IsOnWall) {
                     if (touchingDirections.IsGrounded) {
                         if (IsRunning)
-                            return runSpeed;
-                        else
-                            return walkSpeed;
+                            speed = runSpeed;
+                        else 
+                            speed = walkSpeed;
                     }
-                    else {
-                        return airSpeed;
-                    }
+                    else if (!IsRunning)
+                        speed = walkSpeed;
+                    
+                    return speed;
                 }
             }
             return 0;
@@ -197,14 +199,14 @@ public class PlayerController : MonoBehaviour
     }
 
     private void FixedUpdate()
-    {
+    {   
         //if (!damageable.IsHit)
             rb.velocity = new Vector2(moveInput.x * CurrentMoveSpeed, rb.velocity.y);
         animator.SetFloat(AnimationStrings.yVelocity, rb.velocity.y);
 
         if (IsJumping && touchingDirections.IsGrounded && CanMove) {
             animator.SetTrigger(AnimationStrings.jumpTrigger);
-            rb.velocity = new Vector2(rb.velocity.x, jumpImpulse * rb.gravityScale);
+            rb.velocity = new Vector2(rb.velocity.x, jumpImpulse);
         }
     }
 
