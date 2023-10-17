@@ -16852,6 +16852,18 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4704911983367674160, guid: 4d633208c2f6a4b4ebf1d768fe3bf793, type: 3}
+      propertyPath: jumpImpulse
+      value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 5585646396079231953, guid: 4d633208c2f6a4b4ebf1d768fe3bf793, type: 3}
+      propertyPath: m_Offset.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5585646396079231953, guid: 4d633208c2f6a4b4ebf1d768fe3bf793, type: 3}
+      propertyPath: m_Offset.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7882909418539049897, guid: 4d633208c2f6a4b4ebf1d768fe3bf793, type: 3}
       propertyPath: m_TagString
       value: Blackhole

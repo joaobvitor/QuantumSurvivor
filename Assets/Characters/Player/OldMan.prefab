@@ -585,7 +585,7 @@ MonoBehaviour:
   walkSpeed: 6
   runSpeed: 9
   speed: 0
-  jumpImpulse: 17
+  jumpImpulse: 15
   gravityCooldown: 0.5
   _isMoving: 0
   _isRunning: 0
@@ -598,7 +598,7 @@ MonoBehaviour:
   blackholeCooldown: 10
   blackholeCurrentCooldown: 0
   blackholeRechargeRate: 1.5
-  blackholeRange: 5
+  blackholeRange: 7
   stopTimeDuration: 3
   stopTimeCooldown: 15
   overheatBar: {fileID: 0}
