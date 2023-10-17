@@ -49,6 +49,29 @@ public class JetBot : MonoBehaviour
         }
     }
 
+    private bool _hasTarget = false;
+
+    public bool HasTarget {
+        get {
+            return _hasTarget;
+        } 
+        private set {
+            if (_hasTarget != value && value == true) {
+                bool isPlayerToTheRight = attackZone.detectedColliders[0].transform.position.x - transform.position.x > 0;
+                if ((isPlayerToTheRight && WalkDirection == WalkableDirection.Right)
+                || !isPlayerToTheRight && WalkDirection == WalkableDirection.Left) {
+                    Debug.Log("Target");
+                    animator.SetBool(AnimationStrings.hasTarget, value);
+                    _hasTarget = value;
+                }
+            }
+            else if (_hasTarget != value && value == false) {
+                animator.SetBool(AnimationStrings.hasTarget, value);
+                _hasTarget = value;
+            }
+        } 
+    }
+
     public float AttackCooldown { 
         get {
             return animator.GetFloat(AnimationStrings.attackCooldown);
@@ -72,6 +95,7 @@ public class JetBot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        HasTarget = attackZone.detectedColliders.Count > 0;
         if (AttackCooldown > 0)
             AttackCooldown -= Time.deltaTime;
     }
@@ -82,7 +106,7 @@ public class JetBot : MonoBehaviour
             if (touchingDirections.IsOnWall && touchingDirections.IsGrounded && CanMove)
                 FlipDirection();
             
-            if (!damageable.IsHit) {
+            if (!damageable.IsHit && CanMove) {
                 if (touchingDirections.IsOnWall && !touchingDirections.IsGrounded)
                     rb.velocity = new Vector2(0, rb.velocity.y);
                 else

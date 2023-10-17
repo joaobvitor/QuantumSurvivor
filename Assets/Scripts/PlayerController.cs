@@ -262,6 +262,7 @@ public class PlayerController : MonoBehaviour
             foreach (var obj in everythingAffected) {
                 obj.OnGravityWasSwitched(gravityCooldown);
             }
+            jumpImpulse = -jumpImpulse;
             abilityUsed?.Invoke("GravitySwitch", gravityCooldown);
         }
     }
