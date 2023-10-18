@@ -20,6 +20,8 @@ public class AffectedByTime : MonoBehaviour
     [SerializeField]
     private float stopTimeDuration = 0f;
 
+    private Vector3 prevVelocity;
+
     Rigidbody2D rb;
     Animator animator;
 
@@ -35,6 +37,7 @@ public class AffectedByTime : MonoBehaviour
             rb.velocity = Vector2.zero;
             if (stopTimeDuration <= 0) {
                 TimeIsStopped = false;
+                rb.velocity = prevVelocity;
                 if (animator != null) 
                     animator.enabled = true;
             }
@@ -43,6 +46,7 @@ public class AffectedByTime : MonoBehaviour
 
     public void OnTimeWasStopped(float timeStopDurationToSet) {
         stopTimeDuration = timeStopDurationToSet;
+        prevVelocity = rb.velocity;
         TimeIsStopped = true;
         if (animator != null) 
             animator.enabled = false;
