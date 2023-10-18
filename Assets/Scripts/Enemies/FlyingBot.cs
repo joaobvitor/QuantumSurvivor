@@ -7,6 +7,8 @@ public class FlyingBot : MonoBehaviour
     public float flightSpeed = 2f;
     public float waypointReachedDistance = 0.1f;
     public List<Transform> waypoints;
+    public DetectionZone attackZone;
+
     Animator animator;
     Rigidbody2D rb;
     Damageable damageable;
@@ -25,6 +27,15 @@ public class FlyingBot : MonoBehaviour
             animator.SetBool(AnimationStrings.hasTarget, value);
             _hasTarget = value;
         } 
+    }
+
+    public float AttackCooldown { 
+        get {
+            return animator.GetFloat(AnimationStrings.attackCooldown);
+        }
+        private set {
+             animator.SetFloat(AnimationStrings.attackCooldown, Mathf.Max(value, 0));
+        }
     }
 
     public bool CanMove { 
@@ -47,7 +58,11 @@ public class FlyingBot : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update() {}
+    void Update() {
+        HasTarget = attackZone.detectedColliders.Count > 0;
+        if (AttackCooldown > 0)
+            AttackCooldown -= Time.deltaTime;
+    }
 
     private void FixedUpdate() {
         if (damageable.IsAlive && !time.TimeIsStopped) {

@@ -6,6 +6,7 @@ public class ProjectileLauncher : MonoBehaviour
 {
     public GameObject projectilePrefab;
     public Transform launchPoint;
+
     public void FireProjectile() {
         GameObject projectile = Instantiate(projectilePrefab, launchPoint.position, projectilePrefab.transform.rotation);
         Vector3 origScale = projectile.transform.localScale;
@@ -14,5 +15,9 @@ public class ProjectileLauncher : MonoBehaviour
             origScale.y,
             origScale.z
         );
+    }
+
+    public void FireDirectedProjectile() {
+        GameObject projectile = Instantiate(projectilePrefab, launchPoint.position, projectilePrefab.transform.rotation);
     }
 }
