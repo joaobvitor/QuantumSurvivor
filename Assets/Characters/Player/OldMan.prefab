@@ -373,6 +373,7 @@ GameObject:
   - component: {fileID: 5585646396079231953}
   - component: {fileID: 2197668579313056247}
   - component: {fileID: 8024464849821844266}
+  - component: {fileID: 6750607956080885538}
   m_Layer: 7
   m_Name: OldMan
   m_TagString: Player
@@ -592,6 +593,9 @@ MonoBehaviour:
   _isJumping: 0
   _isFacingRight: 1
   _blackholeIsActive: 0
+  blackholeUnlocked: 1
+  gravitySwitchUnlocked: 0
+  stopTimeUnlocked: 0
   blackholePrefab: {fileID: 6645961308256839148, guid: 8c988b816c396f840be747a86b5b4033, type: 3}
   blackholeMaxHeat: 5
   blackholeHeat: 0
@@ -828,6 +832,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravityCooldown: 0
+--- !u!114 &6750607956080885538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2337996035436732019}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c894d313a0409d4b837c2060d0217c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  noCollidersRemain:
+    m_PersistentCalls:
+      m_Calls: []
+  detectedColliders: []
 --- !u!1 &3198424856686706657
 GameObject:
   m_ObjectHideFlags: 0

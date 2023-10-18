@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 
-public class Cooldown : MonoBehaviour
+public class AbilityIconManager : MonoBehaviour
 {
     [SerializeField]
     private Image imageCooldown;
@@ -17,6 +17,8 @@ public class Cooldown : MonoBehaviour
 
     [SerializeField]
     private string ability;
+    [SerializeField] private Image icon;
+    [SerializeField] private Image lockedIcon;
 
     private bool onCooldown = false;
     private float cooldownTime = 10f;
@@ -64,10 +66,12 @@ public class Cooldown : MonoBehaviour
     
     private void OnEnable() {
         playerController.abilityUsed.AddListener(OnAbilityUse);
+        playerController.abilityUnlocked.AddListener(OnAbilityUnlock);
     }
 
     private void OnDisable() {
         playerController.abilityUsed.RemoveListener(OnAbilityUse);
+        playerController.abilityUnlocked.RemoveListener(OnAbilityUnlock);
     }
 
     public void OnAbilityUse(string usedAbility, float cooldownToSet) {
@@ -76,6 +80,13 @@ public class Cooldown : MonoBehaviour
             textCooldown.gameObject.SetActive(true);
             cooldownTimer = cooldownToSet;
             cooldownTime = cooldownToSet;
+        }
+    }
+
+    public void OnAbilityUnlock(string unlockedAbility) {
+        if (unlockedAbility == ability) {
+            icon.enabled = true;
+            lockedIcon.enabled = false;
         }
     }
 }

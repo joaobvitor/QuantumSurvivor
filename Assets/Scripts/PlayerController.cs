@@ -8,6 +8,7 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     public UnityEvent<string, float> abilityUsed;
+    public UnityEvent<string> abilityUnlocked;
 
     public float walkSpeed = 5f;
     public float runSpeed = 8f;
@@ -118,8 +119,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    [SerializeField] private bool blackholeUnlocked = true;
+    [SerializeField] private bool gravitySwitchUnlocked = false;
+    [SerializeField] private bool stopTimeUnlocked = false;
+
     Rigidbody2D rb;
     Animator animator;
+    DetectionZone interactableDetectionZone;
     
     public GameObject blackholePrefab;
     GameObject blackhole;
@@ -149,6 +155,7 @@ public class PlayerController : MonoBehaviour
         damageable = GetComponent<Damageable>();
         gravity = GetComponent<AffectedByGravity>();
         overheatBar = GetComponentInChildren<OverheatBar>();
+        interactableDetectionZone = GetComponent<DetectionZone>();
     }
 
     // Start is called before the first frame update
@@ -257,7 +264,7 @@ public class PlayerController : MonoBehaviour
     }
 
     public void OnGravitySwitch(InputAction.CallbackContext context) {
-        if (context.started && !gravity.OnCooldown) {
+        if (context.started && !gravity.OnCooldown && gravitySwitchUnlocked) {
             AffectedByGravity[] everythingAffected = FindObjectsOfType<AffectedByGravity>();
             foreach (var obj in everythingAffected) {
                 obj.OnGravityWasSwitched(gravityCooldown);
@@ -268,7 +275,7 @@ public class PlayerController : MonoBehaviour
     }
 
     public void OnBlackhole(InputAction.CallbackContext context) {
-        if (blackholeCurrentCooldown <= 0) {
+        if (blackholeCurrentCooldown <= 0 && blackholeUnlocked) {
             if (blackholeCall == blackholeEnter) {
                 blackholeEnter = !blackholeEnter;
                 BlackholeIsActive = !BlackholeIsActive;
@@ -286,7 +293,7 @@ public class PlayerController : MonoBehaviour
     }
 
     public void OnStopTime(InputAction.CallbackContext context) {
-        if (context.started && stopTimeCurrentCooldown <= 0) {
+        if (context.started && stopTimeCurrentCooldown <= 0 && stopTimeUnlocked) {
             AffectedByTime[] everythingAffected = FindObjectsOfType<AffectedByTime>();
             foreach (var obj in everythingAffected) {
                 obj.OnTimeWasStopped(stopTimeDuration);
@@ -294,5 +301,20 @@ public class PlayerController : MonoBehaviour
             stopTimeCurrentCooldown = stopTimeCooldown;
             abilityUsed?.Invoke("StopTime", stopTimeCooldown);
         }
+    }
+
+    public void OnInteract(InputAction.CallbackContext context) {
+        foreach (Collider2D col in interactableDetectionZone.detectedColliders)
+            col.gameObject.GetComponentInParent<Interactable>()?.DoAction();
+    }
+
+    public void UnlockGravitySwitch() {
+        gravitySwitchUnlocked = true;
+        abilityUnlocked?.Invoke("GravitySwitch");
+    }
+
+    public void UnlockStopTime() {
+        stopTimeUnlocked = true;
+        abilityUnlocked?.Invoke("StopTime");
     }
 }
