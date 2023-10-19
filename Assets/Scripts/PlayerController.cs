@@ -304,8 +304,10 @@ public class PlayerController : MonoBehaviour
     }
 
     public void OnInteract(InputAction.CallbackContext context) {
-        foreach (Collider2D col in interactableDetectionZone.detectedColliders)
-            col.gameObject.GetComponentInParent<Interactable>()?.DoAction();
+        if (context.started) {
+            foreach (Collider2D col in interactableDetectionZone.detectedColliders)
+                col.gameObject.GetComponentInParent<Interactable>()?.DoAction();
+        }
     }
 
     public void UnlockGravitySwitch() {

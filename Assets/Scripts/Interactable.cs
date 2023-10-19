@@ -6,6 +6,9 @@ public class Interactable : MonoBehaviour
 {
     [SerializeField] private bool unlocksGravitySwitch;
     [SerializeField] private bool unlocksStopTime;
+    [SerializeField] private bool isDoor;
+    [SerializeField] private Transform doorPosition;
+
     DetectionZone interactionZone;
     // Start is called before the first frame update
     void Awake()
@@ -24,5 +27,7 @@ public class Interactable : MonoBehaviour
             interactionZone.detectedColliders[0].gameObject.GetComponentInParent<PlayerController>().UnlockGravitySwitch();
         else if (unlocksStopTime)
             interactionZone.detectedColliders[0].gameObject.GetComponentInParent<PlayerController>().UnlockStopTime();
+        else if (isDoor)
+            interactionZone.detectedColliders[0].gameObject.transform.position = doorPosition.position;
     }
 }
