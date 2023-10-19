@@ -207,8 +207,7 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {   
-        //if (!damageable.IsHit)
-            rb.velocity = new Vector2(moveInput.x * CurrentMoveSpeed, rb.velocity.y);
+        rb.velocity = new Vector2(moveInput.x * CurrentMoveSpeed, rb.velocity.y);
         animator.SetFloat(AnimationStrings.yVelocity, rb.velocity.y);
 
         if (IsJumping && touchingDirections.IsGrounded && CanMove) {
@@ -245,11 +244,13 @@ public class PlayerController : MonoBehaviour
     }
 
     public void OnJump(InputAction.CallbackContext context) {
-        if (context.started) {
-            IsJumping = true;
-        }
-        else if (context.canceled) {
-            IsJumping = false;
+        if (IsAlive) {
+            if (context.started) {
+                IsJumping = true;
+            }
+            else if (context.canceled) {
+                IsJumping = false;
+            }
         }
     }
 

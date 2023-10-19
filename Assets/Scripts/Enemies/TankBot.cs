@@ -50,7 +50,7 @@ public class TankBot : MonoBehaviour
             return _hasTarget;
         } 
         private set {
-            if (_hasTarget != value && value == true) {
+            if (value == true) {
                 bool isPlayerToTheRight = attackZone.detectedColliders[0].transform.position.x - transform.position.x > 0;
                 if ((isPlayerToTheRight && WalkDirection == WalkableDirection.Left)
                 || !isPlayerToTheRight && WalkDirection == WalkableDirection.Right)
@@ -90,7 +90,6 @@ public class TankBot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        HasTarget = attackZone.detectedColliders.Count > 0;
         if (AttackCooldown > 0)
             AttackCooldown -= Time.deltaTime;
     }
@@ -98,6 +97,8 @@ public class TankBot : MonoBehaviour
     private void FixedUpdate()
     {
         if (!time.TimeIsStopped) {
+            HasTarget = attackZone.detectedColliders.Count > 0;
+
             if (touchingDirections.IsOnWall && touchingDirections.IsGrounded && CanMove)
                 FlipDirection();
             
