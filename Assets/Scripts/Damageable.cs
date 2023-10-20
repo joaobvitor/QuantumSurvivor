@@ -122,4 +122,8 @@ public class Damageable : MonoBehaviour
 
         return false;
     }
+
+    public void RestoreFullHealth() {
+        Health = MaxHealth;
+    }
 }

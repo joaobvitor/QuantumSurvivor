@@ -583,6 +583,9 @@ MonoBehaviour:
   abilityUsed:
     m_PersistentCalls:
       m_Calls: []
+  abilityUnlocked:
+    m_PersistentCalls:
+      m_Calls: []
   walkSpeed: 6
   runSpeed: 9
   speed: 0
@@ -814,6 +817,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 17014369-6242-48c4-9e17-9798d79b732e
     m_ActionName: Player/StopTime[/Keyboard/q]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4704911983367674160}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnInteract
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 908cb9c5-5ea2-4367-842d-469a3b4f4d1a
+    m_ActionName: Player/Interact[/Keyboard/g]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

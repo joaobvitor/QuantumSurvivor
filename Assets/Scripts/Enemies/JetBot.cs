@@ -62,7 +62,6 @@ public class JetBot : MonoBehaviour
                 bool isPlayerToTheRight = attackZone.detectedColliders[0].transform.position.x - transform.position.x > 0;
                 if ((isPlayerToTheRight && WalkDirection == WalkableDirection.Right)
                 || !isPlayerToTheRight && WalkDirection == WalkableDirection.Left) {
-                    Debug.Log("Target");
                     animator.SetBool(AnimationStrings.hasTarget, value);
                     _hasTarget = value;
                 }

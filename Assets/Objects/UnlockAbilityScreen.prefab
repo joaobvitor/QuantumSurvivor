@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2919075200740288083}
   - component: {fileID: 5974759925204395394}
   - component: {fileID: 3290008332902333117}
+  - component: {fileID: 5145648322676343721}
   m_Layer: 15
   m_Name: UnlockAbilityScreen
   m_TagString: Untagged
@@ -168,6 +169,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unlocksGravitySwitch: 1
   unlocksStopTime: 0
+  isDoor: 0
+  setsEnemiesActive: 0
+  setsDialogueBoxActive: 0
+  hasKillCondition: 0
+  dialogueBox: {fileID: 0}
+  lines: []
+  doorPosition: {fileID: 0}
+  enemiesToActivate: []
+  enemiesToKill: []
+  conditionDialogueLines: []
 --- !u!114 &3290008332902333117
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -184,3 +195,23 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   detectedColliders: []
+--- !u!114 &5145648322676343721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6330325802043731927}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ee4064ce731caa459f3dc758fb3d757, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hasTriggerable: 0
+  triggerable: {fileID: 0}
+  setsEnemiesActive: 0
+  enemiesToActivate: []
+  setsDialogueBoxActive: 1
+  dialogueBox: {fileID: 0}
+  lines:
+  - '[Press G] to interact with objects.'

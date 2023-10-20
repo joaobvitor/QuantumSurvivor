@@ -233,17 +233,6 @@
                 },
                 {
                     "name": "",
-                    "id": "a6e1f347-7305-41f0-bf55-58710f1a6213",
-                    "path": "<Keyboard>/space",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "Jump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "f2539250-b4c4-4a67-9d52-0b0afd45c28b",
                     "path": "<Keyboard>/upArrow",
                     "interactions": "",
@@ -259,7 +248,18 @@
                     "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "987a526a-e1c2-4425-8c79-fa4da972e33f",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
                     "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -289,7 +289,7 @@
                 {
                     "name": "",
                     "id": "e8d38f31-bc8f-40ea-ab73-2e4f68d48e82",
-                    "path": "<Keyboard>/q",
+                    "path": "<Keyboard>/r",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",

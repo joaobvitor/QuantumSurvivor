@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using System;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(TouchingDirections), typeof(Damageable))]
 public class PlayerController : MonoBehaviour
@@ -127,6 +129,8 @@ public class PlayerController : MonoBehaviour
     Animator animator;
     DetectionZone interactableDetectionZone;
     
+    private int numCheckpoints = 0;
+    
     public GameObject blackholePrefab;
     GameObject blackhole;
 
@@ -161,12 +165,16 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!IsAlive) {
+            Invoke("RespawnPlayer", 2f);
+        }
+        
         if (BlackholeIsActive && blackholeCurrentCooldown == 0) {
             blackholeHeat += Time.deltaTime;
             BlackholeBehaviour();
@@ -183,6 +191,10 @@ public class PlayerController : MonoBehaviour
 
         if (stopTimeCurrentCooldown > 0)
             stopTimeCurrentCooldown -= Time.deltaTime;
+    }
+
+    private void RespawnPlayer() {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + numCheckpoints);
     }
 
     private void BlackholeBehaviour() {
@@ -313,11 +325,13 @@ public class PlayerController : MonoBehaviour
 
     public void UnlockGravitySwitch() {
         gravitySwitchUnlocked = true;
+        //numCheckpoints++;
         abilityUnlocked?.Invoke("GravitySwitch");
     }
 
     public void UnlockStopTime() {
         stopTimeUnlocked = true;
+        //numCheckpoints++;
         abilityUnlocked?.Invoke("StopTime");
     }
 }

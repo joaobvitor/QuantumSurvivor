@@ -9,10 +9,12 @@ public class Attack : MonoBehaviour
     public int attackDamage = 10;
     public Vector2 knockback = Vector2.zero;
     Collider2D attackCollider;
+    Damageable thisDamageable;
     AffectedByTime time;
 
     private void Awake() {
         attackCollider = GetComponent<Collider2D>();
+        thisDamageable = GetComponentInParent<Damageable>();
         time = GetComponentInParent<AffectedByTime>();
     }
 
@@ -21,7 +23,7 @@ public class Attack : MonoBehaviour
             if (time == null || !time.TimeIsStopped) {
                 Damageable damageable = collision.GetComponent<Damageable>();
 
-                if (damageable != null) {
+                if (damageable != null && (thisDamageable == null || (thisDamageable != null && thisDamageable.IsAlive))) {
                     if (transform.parent)
                         knockback = transform.parent.localScale.x > 0 ? knockback : Vector2.Scale(knockback, new Vector2(-1, 1));
                     bool gotHit = damageable.Hit(attackDamage, knockback);
@@ -35,7 +37,7 @@ public class Attack : MonoBehaviour
             if (time == null || !time.TimeIsStopped) {
                 Damageable damageable = collision.GetComponent<Damageable>();
 
-                if (damageable != null) {
+                if (damageable != null && (thisDamageable == null || (thisDamageable != null && thisDamageable.IsAlive))) {
                     bool gotHit = damageable.Hit(attackDamage, knockback);
                 }
             }
