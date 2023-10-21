@@ -295,7 +295,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnGravitySwitch(InputAction.CallbackContext context) {
         if(!PauseMenu.isPaused){
-            if (context.started && !gravity.OnCooldown && gravitySwitchUnlocked) {
+            if (context.started && IsAlive && !gravity.OnCooldown && gravitySwitchUnlocked) {
                 AffectedByGravity[] everythingAffected = FindObjectsOfType<AffectedByGravity>();
                 foreach (var obj in everythingAffected) {
                     obj.OnGravityWasSwitched(gravityCooldown);
@@ -308,7 +308,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnBlackhole(InputAction.CallbackContext context) {
         if(!PauseMenu.isPaused){
-            if (blackholeCurrentCooldown <= 0 && blackholeUnlocked) {
+            if (IsAlive && blackholeCurrentCooldown <= 0 && blackholeUnlocked) {
                 if (blackholeCall == blackholeEnter) {
                     blackholeEnter = !blackholeEnter;
                     BlackholeIsActive = !BlackholeIsActive;
@@ -327,7 +327,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnStopTime(InputAction.CallbackContext context) {
         if(!PauseMenu.isPaused){
-            if (context.started && stopTimeCurrentCooldown <= 0 && stopTimeUnlocked) {
+            if (context.started && IsAlive && stopTimeCurrentCooldown <= 0 && stopTimeUnlocked) {
                 AffectedByTime[] everythingAffected = FindObjectsOfType<AffectedByTime>();
                 foreach (var obj in everythingAffected) {
                     obj.OnTimeWasStopped(stopTimeDuration);
@@ -340,7 +340,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnInteract(InputAction.CallbackContext context) {
         if(!PauseMenu.isPaused){
-            if (context.started) {
+            if (context.started && IsAlive) {
                 foreach (Collider2D col in interactableDetectionZone.detectedColliders)
                     col.gameObject.GetComponentInParent<Interactable>()?.DoAction();
             }
