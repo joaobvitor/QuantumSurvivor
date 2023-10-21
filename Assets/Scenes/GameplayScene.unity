@@ -57414,6 +57414,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4704911983367674160, guid: 4d633208c2f6a4b4ebf1d768fe3bf793, type: 3}
+      propertyPath: PauseMenu
+      value: 
+      objectReference: {fileID: 1200925413}
+    - target: {fileID: 4704911983367674160, guid: 4d633208c2f6a4b4ebf1d768fe3bf793, type: 3}
       propertyPath: jumpImpulse
       value: 17
       objectReference: {fileID: 0}
