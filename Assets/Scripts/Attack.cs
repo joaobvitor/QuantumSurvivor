@@ -6,7 +6,7 @@ public class Attack : MonoBehaviour
 {
     [SerializeField] private bool onTriggerEnter = true;
     [SerializeField] private bool onTriggerStay = false;
-    public int attackDamage = 10;
+    [SerializeField] public int attackDamage = 10;
     public Vector2 knockback = Vector2.zero;
     Collider2D attackCollider;
     Damageable thisDamageable;

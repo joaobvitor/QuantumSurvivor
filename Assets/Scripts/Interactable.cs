@@ -7,6 +7,7 @@ public class Interactable : MonoBehaviour
     [SerializeField] private bool unlocksGravitySwitch;
     [SerializeField] private bool unlocksStopTime;
     [SerializeField] private bool isDoor;
+    [SerializeField] private bool isUpgradeMachine;
     [SerializeField] private bool setsEnemiesActive;
     [SerializeField] private bool setsDialogueBoxActive;
     [SerializeField] private bool hasKillCondition;
@@ -16,6 +17,8 @@ public class Interactable : MonoBehaviour
     [SerializeField] private GameObject[] enemiesToActivate;
     [SerializeField] private GameObject[] enemiesToKill;
     [SerializeField] private string[] conditionDialogueLines;
+
+    [SerializeField] public UpgradeMenu UpgradeMenu;
 
     DetectionZone interactionZone;
     // Start is called before the first frame update
@@ -37,7 +40,7 @@ public class Interactable : MonoBehaviour
         }
         else {
             if (unlocksGravitySwitch)
-            interactionZone.detectedColliders[0].gameObject.GetComponentInParent<PlayerController>().UnlockGravitySwitch();
+                interactionZone.detectedColliders[0].gameObject.GetComponentInParent<PlayerController>().UnlockGravitySwitch();
             if (unlocksStopTime)
                 interactionZone.detectedColliders[0].gameObject.GetComponentInParent<PlayerController>().UnlockStopTime();
             if (isDoor)
@@ -45,6 +48,9 @@ public class Interactable : MonoBehaviour
             if (setsEnemiesActive) {
                 foreach (GameObject enemy in enemiesToActivate)
                     enemy.SetActive(true);
+            }
+            if(isUpgradeMachine){
+                UpgradeMenu.open();
             }
             if (setsDialogueBoxActive) {
                 dialogueBox.GetComponent<DialogueBox>().lines = lines;

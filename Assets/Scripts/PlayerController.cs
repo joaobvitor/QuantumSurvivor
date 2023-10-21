@@ -6,6 +6,8 @@ using UnityEngine.InputSystem;
 using System;
 using UnityEngine.SceneManagement;
 
+
+
 [RequireComponent(typeof(Rigidbody2D), typeof(TouchingDirections), typeof(Damageable))]
 public class PlayerController : MonoBehaviour
 {
@@ -22,6 +24,9 @@ public class PlayerController : MonoBehaviour
     TouchingDirections touchingDirections;
     Damageable damageable;
     AffectedByGravity gravity;
+
+    [SerializeField]
+    public PauseMenu PauseMenu;
 
     public float CurrentMoveSpeed { get
         {
@@ -146,7 +151,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float stopTimeDuration = 3f;
     [SerializeField]
-    private float stopTimeCooldown = 15f;
+    public float stopTimeCooldown = 15f;
     private float stopTimeCurrentCooldown = 0;
 
     [SerializeField] OverheatBar overheatBar;
@@ -171,26 +176,28 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!IsAlive) {
-            Invoke("RespawnPlayer", 2f);
-        }
-        
-        if (BlackholeIsActive && blackholeCurrentCooldown == 0) {
-            blackholeHeat += Time.deltaTime;
-            BlackholeBehaviour();
-        }
-        else {
-            if (blackholeHeat > 0)
-                blackholeHeat -= Time.deltaTime * blackholeRechargeRate;
-        }
+        if(!PauseMenu.isPaused){
+            if (!IsAlive) {
+                Invoke("RespawnPlayer", 2f);
+            }
 
-        if (blackholeCurrentCooldown > 0)
-            blackholeCurrentCooldown -= Time.deltaTime;
+            if (BlackholeIsActive && blackholeCurrentCooldown == 0) {
+                blackholeHeat += Time.deltaTime;
+                BlackholeBehaviour();
+            }
+            else {
+                if (blackholeHeat > 0)
+                    blackholeHeat -= Time.deltaTime * blackholeRechargeRate;
+            }
 
-        overheatBar.UpdateOverheatBar(blackholeHeat, blackholeMaxHeat);
+            if (blackholeCurrentCooldown > 0)
+                blackholeCurrentCooldown -= Time.deltaTime;
 
-        if (stopTimeCurrentCooldown > 0)
-            stopTimeCurrentCooldown -= Time.deltaTime;
+            overheatBar.UpdateOverheatBar(blackholeHeat, blackholeMaxHeat);
+
+            if (stopTimeCurrentCooldown > 0)
+                stopTimeCurrentCooldown -= Time.deltaTime;
+        }
     }
 
     private void RespawnPlayer() {
@@ -219,22 +226,26 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {   
-        rb.velocity = new Vector2(moveInput.x * CurrentMoveSpeed, rb.velocity.y);
-        animator.SetFloat(AnimationStrings.yVelocity, rb.velocity.y);
+        if(!PauseMenu.isPaused){
+            rb.velocity = new Vector2(moveInput.x * CurrentMoveSpeed, rb.velocity.y);
+            animator.SetFloat(AnimationStrings.yVelocity, rb.velocity.y);
 
-        if (IsJumping && touchingDirections.IsGrounded && CanMove) {
-            animator.SetTrigger(AnimationStrings.jumpTrigger);
-            rb.velocity = new Vector2(rb.velocity.x, jumpImpulse);
+            if (IsJumping && touchingDirections.IsGrounded && CanMove) {
+                animator.SetTrigger(AnimationStrings.jumpTrigger);
+                rb.velocity = new Vector2(rb.velocity.x, jumpImpulse);
+            }
         }
     }
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        moveInput = context.ReadValue<Vector2>();
+        if(!PauseMenu.isPaused){
+            moveInput = context.ReadValue<Vector2>();
 
-        if (IsAlive) {
-            IsMoving = (moveInput != Vector2.zero);
-            SetFacingDirection(moveInput);
+            if (IsAlive) {
+                IsMoving = (moveInput != Vector2.zero);
+                SetFacingDirection(moveInput);
+            }
         }
     }
 
@@ -247,28 +258,34 @@ public class PlayerController : MonoBehaviour
 
     public void OnRun(InputAction.CallbackContext context)
     {
-        if (context.started) {
-            IsRunning = true;
-        }
-        else if (context.canceled) {
-            IsRunning = false;
+        if(!PauseMenu.isPaused){
+            if (context.started) {
+                IsRunning = true;
+            }
+            else if (context.canceled) {
+                IsRunning = false;
+            }
         }
     }
 
     public void OnJump(InputAction.CallbackContext context) {
-        if (IsAlive) {
-            if (context.started) {
-                IsJumping = true;
-            }
-            else if (context.canceled) {
-                IsJumping = false;
+        if(!PauseMenu.isPaused){
+            if (IsAlive) {
+                if (context.started) {
+                    IsJumping = true;
+                }
+                else if (context.canceled) {
+                    IsJumping = false;
+                }
             }
         }
     }
 
     public void OnAttack(InputAction.CallbackContext context) {
-        if (context.started) {
-            animator.SetTrigger(AnimationStrings.attackTrigger);
+        if(!PauseMenu.isPaused){
+            if (context.started) {
+                animator.SetTrigger(AnimationStrings.attackTrigger);
+            }
         }
     }
 
@@ -277,49 +294,56 @@ public class PlayerController : MonoBehaviour
     }
 
     public void OnGravitySwitch(InputAction.CallbackContext context) {
-        if (context.started && !gravity.OnCooldown && gravitySwitchUnlocked) {
-            AffectedByGravity[] everythingAffected = FindObjectsOfType<AffectedByGravity>();
-            foreach (var obj in everythingAffected) {
-                obj.OnGravityWasSwitched(gravityCooldown);
+        if(!PauseMenu.isPaused){
+            if (context.started && IsAlive && !gravity.OnCooldown && gravitySwitchUnlocked) {
+                AffectedByGravity[] everythingAffected = FindObjectsOfType<AffectedByGravity>();
+                foreach (var obj in everythingAffected) {
+                    obj.OnGravityWasSwitched(gravityCooldown);
+                }
+                jumpImpulse = -jumpImpulse;
+                abilityUsed?.Invoke("GravitySwitch", gravityCooldown);
             }
-            jumpImpulse = -jumpImpulse;
-            abilityUsed?.Invoke("GravitySwitch", gravityCooldown);
         }
     }
 
     public void OnBlackhole(InputAction.CallbackContext context) {
-        if (blackholeCurrentCooldown <= 0 && blackholeUnlocked) {
-            if (blackholeCall == blackholeEnter) {
-                blackholeEnter = !blackholeEnter;
-                BlackholeIsActive = !BlackholeIsActive;
+        if(!PauseMenu.isPaused){
+            if (IsAlive && blackholeCurrentCooldown <= 0 && blackholeUnlocked) {
+                if (blackholeCall == blackholeEnter) {
+                    blackholeEnter = !blackholeEnter;
+                    BlackholeIsActive = !BlackholeIsActive;
 
-                if (BlackholeIsActive) {
-                    blackhole = Instantiate(blackholePrefab,  Input.mousePosition, blackholePrefab.transform.rotation);
-                }
-                else {
-                    Destroy(blackhole);
+                    if (BlackholeIsActive) {
+                        blackhole = Instantiate(blackholePrefab,  Input.mousePosition, blackholePrefab.transform.rotation);
+                    }
+                    else {
+                        Destroy(blackhole);
+                    }
                 }
             }
-        }
-
         blackholeCall = !blackholeCall;
+        }
     }
 
     public void OnStopTime(InputAction.CallbackContext context) {
-        if (context.started && stopTimeCurrentCooldown <= 0 && stopTimeUnlocked) {
-            AffectedByTime[] everythingAffected = FindObjectsOfType<AffectedByTime>();
-            foreach (var obj in everythingAffected) {
-                obj.OnTimeWasStopped(stopTimeDuration);
+        if(!PauseMenu.isPaused){
+            if (context.started && IsAlive && stopTimeCurrentCooldown <= 0 && stopTimeUnlocked) {
+                AffectedByTime[] everythingAffected = FindObjectsOfType<AffectedByTime>();
+                foreach (var obj in everythingAffected) {
+                    obj.OnTimeWasStopped(stopTimeDuration);
+                }
+                stopTimeCurrentCooldown = stopTimeCooldown;
+                abilityUsed?.Invoke("StopTime", stopTimeCooldown);
             }
-            stopTimeCurrentCooldown = stopTimeCooldown;
-            abilityUsed?.Invoke("StopTime", stopTimeCooldown);
         }
     }
 
     public void OnInteract(InputAction.CallbackContext context) {
-        if (context.started) {
-            foreach (Collider2D col in interactableDetectionZone.detectedColliders)
-                col.gameObject.GetComponentInParent<Interactable>()?.DoAction();
+        if(!PauseMenu.isPaused){
+            if (context.started && IsAlive) {
+                foreach (Collider2D col in interactableDetectionZone.detectedColliders)
+                    col.gameObject.GetComponentInParent<Interactable>()?.DoAction();
+            }
         }
     }
 
