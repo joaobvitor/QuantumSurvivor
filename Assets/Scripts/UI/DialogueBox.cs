@@ -5,7 +5,9 @@ using TMPro;
 using UnityEngine.InputSystem;
 
 public class DialogueBox : MonoBehaviour
-{
+{   
+    [SerializeField]
+    public PauseMenu PauseMenu;
     public TextMeshProUGUI textComponent;
     public string[] lines;
     public float textSpeed;
@@ -25,13 +27,15 @@ public class DialogueBox : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-        if (Input.GetMouseButtonDown(0)) {
-            if (textComponent.text == lines[index])
-                NextLine();
-            else {
-                StopAllCoroutines();
-                textComponent.text = lines[index];
+    {   
+        if(!PauseMenu.isPaused){
+            if (Input.GetMouseButtonDown(0)) {
+                if (textComponent.text == lines[index])
+                    NextLine();
+                else {
+                    StopAllCoroutines();
+                    textComponent.text = lines[index];
+                }
             }
         }
     }
