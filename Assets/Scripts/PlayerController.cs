@@ -151,7 +151,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float stopTimeDuration = 3f;
     [SerializeField]
-    private float stopTimeCooldown = 15f;
+    public float stopTimeCooldown = 15f;
     private float stopTimeCurrentCooldown = 0;
 
     [SerializeField] OverheatBar overheatBar;

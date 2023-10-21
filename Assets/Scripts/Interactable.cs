@@ -40,7 +40,7 @@ public class Interactable : MonoBehaviour
         }
         else {
             if (unlocksGravitySwitch)
-            interactionZone.detectedColliders[0].gameObject.GetComponentInParent<PlayerController>().UnlockGravitySwitch();
+                interactionZone.detectedColliders[0].gameObject.GetComponentInParent<PlayerController>().UnlockGravitySwitch();
             if (unlocksStopTime)
                 interactionZone.detectedColliders[0].gameObject.GetComponentInParent<PlayerController>().UnlockStopTime();
             if (isDoor)

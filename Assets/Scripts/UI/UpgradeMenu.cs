@@ -10,6 +10,9 @@ public class UpgradeMenu : MonoBehaviour
     [SerializeField]
     public PauseMenu PauseMenu;
 
+    [SerializeField]
+    public upgrades upgrades;
+
     // Start is called before the first frame update    
     void Start()
     {
