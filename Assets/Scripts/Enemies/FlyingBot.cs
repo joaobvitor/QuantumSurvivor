@@ -54,6 +54,10 @@ public class FlyingBot : MonoBehaviour
 
     void Start()
     {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player.GetComponent<Rigidbody2D>().gravityScale < 0) {
+            gameObject.transform.localScale = new Vector2(gameObject.transform.localScale.x, -gameObject.transform.localScale.y);
+        }
         nextWaypoint = waypoints[0];
     }
 

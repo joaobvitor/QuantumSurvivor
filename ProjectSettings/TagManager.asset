@@ -23,8 +23,8 @@ TagManager:
   - GroundHitbox
   - Projectile
   - Interact
-  - 
-  - 
+  - Box
+  - Button
   - 
   - 
   - 

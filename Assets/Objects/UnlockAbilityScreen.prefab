@@ -207,11 +207,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ee4064ce731caa459f3dc758fb3d757, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hasTriggerableOnce: 0
   hasTriggerable: 0
   triggerable: {fileID: 0}
   setsEnemiesActive: 0
   enemiesToActivate: []
-  setsDialogueBoxActive: 1
+  hasKillCondition: 0
+  enemiesToKill: []
+  setsDialogueBoxActive: 0
   dialogueBox: {fileID: 0}
-  lines:
-  - '[Press G] to interact with objects.'
+  lines: []

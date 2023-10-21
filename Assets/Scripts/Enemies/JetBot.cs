@@ -102,6 +102,14 @@ public class JetBot : MonoBehaviour
         time = GetComponent<AffectedByTime>();
     }
 
+    void Start() {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player.GetComponent<Rigidbody2D>().gravityScale < 0) {
+            gameObject.transform.localScale = new Vector2(gameObject.transform.localScale.x, -gameObject.transform.localScale.y);
+            rb.gravityScale = -rb.gravityScale;
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
