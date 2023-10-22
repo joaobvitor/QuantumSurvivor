@@ -159,14 +159,17 @@ public class PlayerController : MonoBehaviour
     public float blackholeCurrentCooldown = 0f;
     public float blackholeRechargeRate = 1f;
     public float blackholeRange = 5f;
+    public float blackholeScale = 0f;
     private bool blackholeCall;
     private bool blackholeEnter;
+
+    public bool gravityHealUpgrade = false;
     
     [SerializeField]
     private float stopTimeDuration = 3f;
     [SerializeField]
     public float stopTimeCooldown = 15f;
-    private float stopTimeCurrentCooldown = 0;
+    private float stopTimeCurrentCooldown = 0.5f;
 
     [SerializeField] OverheatBar overheatBar;
 
@@ -316,6 +319,8 @@ public class PlayerController : MonoBehaviour
                 }
                 jumpImpulse = -jumpImpulse;
                 abilityUsed?.Invoke("GravitySwitch", gravityCooldown);
+                if (gravityHealUpgrade)
+                    damageable.Heal(1);
             }
         }
     }
@@ -329,6 +334,8 @@ public class PlayerController : MonoBehaviour
 
                     if (BlackholeIsActive) {
                         blackhole = Instantiate(blackholePrefab,  Input.mousePosition, blackholePrefab.transform.rotation);
+                        blackhole.transform.localScale = new Vector2(blackhole.transform.localScale.x + blackholeScale,
+                                                                    blackhole.transform.localScale.y + blackholeScale);
                     }
                     else {
                         Destroy(blackhole);

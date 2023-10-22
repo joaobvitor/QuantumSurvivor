@@ -11,6 +11,7 @@ public class UpgradeMenu : MonoBehaviour
 
     public PlayerController playerController;
 
+    public bool upgradedBlackholeSize = false;
     public bool upgradedBlackholeRange = false;
     public bool upgradedTimeStopCooldown = false;
     public bool upgradedGravitySwitchCooldown = false;
@@ -24,6 +25,7 @@ public class UpgradeMenu : MonoBehaviour
     void Start()
     {
         upgradeMenu.SetActive(false);
+        upgradedBlackholeSize = false;
         upgradedBlackholeRange = false;
         upgradedTimeStopCooldown = false;
         upgradedGravitySwitchCooldown = false;
@@ -49,11 +51,25 @@ public class UpgradeMenu : MonoBehaviour
         PauseMenu.PauseWithoutMenu();
     }
 
+    public void UpgradeBlackholeSize() {
+        GetPlayerController();
+
+        if(!upgradedBlackholeSize && playerController.Money >= 50) {
+            playerController.Money -= 50;
+            playerController.blackholeScale += 1;
+            upgradedBlackholeSize = true;
+            AudioSource.PlayClipAtPoint(buySound.clip, gameObject.transform.position, buySound.volume);
+        }
+        else 
+            AudioSource.PlayClipAtPoint(cantBuySound.clip, playerController.gameObject.transform.position, cantBuySound.volume);
+
+    }
+
     public void UpgradeBlackholeRange() {
         GetPlayerController();
 
-        if(!upgradedBlackholeRange && playerController.Money >= 5) {
-            playerController.Money -= 5;
+        if(!upgradedBlackholeRange && playerController.Money >= 75) {
+            playerController.Money -= 75;
             playerController.blackholeRange += 3f;
             upgradedBlackholeRange = true;
             AudioSource.PlayClipAtPoint(buySound.clip, gameObject.transform.position, buySound.volume);
@@ -66,8 +82,8 @@ public class UpgradeMenu : MonoBehaviour
     public void UpgradeTimeStopCooldown() {
         GetPlayerController();
 
-        if(!upgradedTimeStopCooldown && playerController.Money >= 5) {
-            playerController.Money -= 5;
+        if(!upgradedTimeStopCooldown && playerController.Money >= 130) {
+            playerController.Money -= 130;
             playerController.stopTimeCooldown -= 5f;
             upgradedTimeStopCooldown = true;
             AudioSource.PlayClipAtPoint(buySound.clip, gameObject.transform.position, buySound.volume);
@@ -76,12 +92,12 @@ public class UpgradeMenu : MonoBehaviour
             AudioSource.PlayClipAtPoint(cantBuySound.clip, playerController.gameObject.transform.position, cantBuySound.volume);
     }
 
-    public void UpgradeGravitySwitchCooldown() {
+    public void UpgradeGravitySwitchHeal() {
         GetPlayerController();
 
-        if(!upgradedGravitySwitchCooldown && playerController.Money >= 5) {
-            playerController.Money -= 5;
-            playerController.gravityCooldown -= 0.3f;
+        if(!upgradedGravitySwitchCooldown && playerController.Money >= 125) {
+            playerController.Money -= 125;
+            playerController.gravityHealUpgrade = true;
             upgradedGravitySwitchCooldown = true;
             AudioSource.PlayClipAtPoint(buySound.clip, gameObject.transform.position, buySound.volume);
         }

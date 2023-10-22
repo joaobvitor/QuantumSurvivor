@@ -198,6 +198,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pauseMenu: {fileID: 0}
   isPaused: 0
+  pauseSound: {fileID: 0}
+  resumeSound: {fileID: 0}
   UpgradeMenu: {fileID: 8703674235483866984}
 --- !u!114 &8703674235483866984
 MonoBehaviour:
@@ -215,13 +217,14 @@ MonoBehaviour:
   IsOn: 0
   PauseMenu: {fileID: 6294606984140378526}
   playerController: {fileID: 0}
+  upgradedBlackholeSize: 0
   upgradedBlackholeRange: 0
   upgradedTimeStopCooldown: 0
   upgradedGravitySwitchCooldown: 0
-  openSound: {fileID: 0}
-  closeSound: {fileID: 0}
-  buySound: {fileID: 0}
-  cantBuySound: {fileID: 0}
+  openSound: {fileID: 4510903298027241599}
+  closeSound: {fileID: 4510903298027241599}
+  buySound: {fileID: 3281286411868487557}
+  cantBuySound: {fileID: 4053654002367387929}
 --- !u!82 &4510903298027241599
 AudioSource:
   m_ObjectHideFlags: 0
