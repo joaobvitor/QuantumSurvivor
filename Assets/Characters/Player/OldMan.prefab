@@ -589,16 +589,17 @@ MonoBehaviour:
   walkSpeed: 6
   runSpeed: 9
   speed: 0
-  jumpImpulse: 15
+  jumpImpulse: 17
   gravityCooldown: 0.5
+  PauseMenu: {fileID: 0}
   _isMoving: 0
   _isRunning: 0
   _isJumping: 0
   _isFacingRight: 1
   _blackholeIsActive: 0
   blackholeUnlocked: 1
-  gravitySwitchUnlocked: 0
-  stopTimeUnlocked: 0
+  gravitySwitchUnlocked: 1
+  stopTimeUnlocked: 1
   blackholePrefab: {fileID: 6645961308256839148, guid: 8c988b816c396f840be747a86b5b4033, type: 3}
   blackholeMaxHeat: 5
   blackholeHeat: 0
@@ -641,7 +642,7 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.05014801, y: -0.12955117}
+  m_Offset: {x: 0, y: 0}
   m_Size: {x: 1.1976547, y: 1.7446904}
   m_Direction: 0
 --- !u!114 &2197668579313056247
