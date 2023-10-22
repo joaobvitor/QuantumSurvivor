@@ -6,9 +6,10 @@ public class PauseMenu : MonoBehaviour
 {
     public GameObject pauseMenu;
     public bool isPaused;
+    public AudioSource pauseSound;
+    public AudioSource resumeSound;
 
-    [SerializeField]
-    public UpgradeMenu UpgradeMenu;
+    [SerializeField] public UpgradeMenu UpgradeMenu;
 
     // Start is called before the first frame update
     void Start()
@@ -34,6 +35,7 @@ public class PauseMenu : MonoBehaviour
 
     public void PauseGame(){
         pauseMenu.SetActive(true);
+        AudioSource.PlayClipAtPoint(pauseSound.clip, gameObject.transform.position, pauseSound.volume);
         PauseWithoutMenu();
     }
 
@@ -44,11 +46,10 @@ public class PauseMenu : MonoBehaviour
 
     public void ResumeGame(){
         pauseMenu.SetActive(false);
+        AudioSource.PlayClipAtPoint(resumeSound.clip, gameObject.transform.position, resumeSound.volume);
         Time.timeScale = 1f;
         isPaused = false;
     }
-
-
 
     public void QuitGame(){
         Application.Quit();

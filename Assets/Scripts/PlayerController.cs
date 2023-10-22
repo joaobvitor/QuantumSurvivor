@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
             return _money;
         }
         set {
+            CharacterEvents.characterMoneyChanged.Invoke(gameObject, value - Money);
             moneyChanged?.Invoke(value);
             _money = value;
         }
@@ -189,7 +190,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!PauseMenu.isPaused){
+        if(!PauseMenu.isPaused) {
             if (!IsAlive) {
                 Invoke("RespawnPlayer", 2f);
             }
@@ -239,7 +240,7 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {   
-        if(!PauseMenu.isPaused){
+        if(!PauseMenu.isPaused) {
             rb.velocity = new Vector2(moveInput.x * CurrentMoveSpeed, rb.velocity.y);
             animator.SetFloat(AnimationStrings.yVelocity, rb.velocity.y);
 
@@ -252,7 +253,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        if(!PauseMenu.isPaused){
+        if(!PauseMenu.isPaused) {
             moveInput = context.ReadValue<Vector2>();
 
             if (IsAlive) {
@@ -271,7 +272,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnRun(InputAction.CallbackContext context)
     {
-        if(!PauseMenu.isPaused){
+        if(!PauseMenu.isPaused) {
             if (context.started) {
                 IsRunning = true;
             }
@@ -282,7 +283,7 @@ public class PlayerController : MonoBehaviour
     }
 
     public void OnJump(InputAction.CallbackContext context) {
-        if(!PauseMenu.isPaused){
+        if(!PauseMenu.isPaused) {
             if (IsAlive) {
                 if (context.started) {
                     IsJumping = true;
@@ -295,7 +296,7 @@ public class PlayerController : MonoBehaviour
     }
 
     public void OnAttack(InputAction.CallbackContext context) {
-        if(!PauseMenu.isPaused){
+        if(!PauseMenu.isPaused) {
             if (context.started) {
                 animator.SetTrigger(AnimationStrings.attackTrigger);
             }
@@ -307,7 +308,7 @@ public class PlayerController : MonoBehaviour
     }
 
     public void OnGravitySwitch(InputAction.CallbackContext context) {
-        if(!PauseMenu.isPaused){
+        if(!PauseMenu.isPaused) {
             if (context.started && IsAlive && !gravity.OnCooldown && gravitySwitchUnlocked) {
                 AffectedByGravity[] everythingAffected = FindObjectsOfType<AffectedByGravity>();
                 foreach (var obj in everythingAffected) {
@@ -320,7 +321,7 @@ public class PlayerController : MonoBehaviour
     }
 
     public void OnBlackhole(InputAction.CallbackContext context) {
-        if(!PauseMenu.isPaused){
+        if(!PauseMenu.isPaused) {
             if (IsAlive && blackholeCurrentCooldown <= 0 && blackholeUnlocked) {
                 if (blackholeCall == blackholeEnter) {
                     blackholeEnter = !blackholeEnter;
@@ -339,7 +340,7 @@ public class PlayerController : MonoBehaviour
     }
 
     public void OnStopTime(InputAction.CallbackContext context) {
-        if(!PauseMenu.isPaused){
+        if(!PauseMenu.isPaused) {
             if (context.started && IsAlive && stopTimeCurrentCooldown <= 0 && stopTimeUnlocked) {
                 AffectedByTime[] everythingAffected = FindObjectsOfType<AffectedByTime>();
                 foreach (var obj in everythingAffected) {
@@ -352,7 +353,7 @@ public class PlayerController : MonoBehaviour
     }
 
     public void OnInteract(InputAction.CallbackContext context) {
-        if(!PauseMenu.isPaused){
+        if(!PauseMenu.isPaused) {
             if (context.started && IsAlive) {
                 foreach (Collider2D col in interactableDetectionZone.detectedColliders)
                     col.gameObject.GetComponentInParent<Interactable>()?.DoAction();

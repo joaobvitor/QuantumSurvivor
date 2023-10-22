@@ -53,8 +53,10 @@ public class UIManager : MonoBehaviour
         Vector3 spawnPosition = Camera.main.WorldToScreenPoint(character.transform.position);
 
         TMP_Text tmpText = Instantiate(moneyTextPrefab, spawnPosition, Quaternion.identity, gameCanvas.transform).GetComponent<TMP_Text>();
-
-        tmpText.text = "+" + money.ToString() + " coins";
+        if (money >= 0)
+            tmpText.text = "+" + money.ToString() + " coins";
+        else
+            tmpText.text = money.ToString() + " coins";
     }
 
     public void OnExitGame(InputAction.CallbackContext context) {

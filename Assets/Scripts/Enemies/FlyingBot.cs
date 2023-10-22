@@ -113,6 +113,5 @@ public class FlyingBot : MonoBehaviour
 
     public void OnDeath() {
         player.GetComponent<PlayerController>().Money += moneyOnDeath;
-        CharacterEvents.characterMoneyChanged.Invoke(player, moneyOnDeath);
     }
 }
