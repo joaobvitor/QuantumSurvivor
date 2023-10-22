@@ -29,7 +29,7 @@ public class DialogueBox : MonoBehaviour
     void Update()
     {   
         if(!PauseMenu.isPaused){
-            if (Input.GetMouseButtonDown(0)) {
+            if (Input.anyKeyDown) {
                 if (textComponent.text == lines[index])
                     NextLine();
                 else {

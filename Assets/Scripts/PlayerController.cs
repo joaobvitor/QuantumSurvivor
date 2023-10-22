@@ -176,6 +176,7 @@ public class PlayerController : MonoBehaviour
     private float stopTimeCurrentCooldown = 0.5f;
 
     [SerializeField] OverheatBar overheatBar;
+    private RectTransform bar;
 
     private void Awake()
     {
@@ -186,6 +187,8 @@ public class PlayerController : MonoBehaviour
         gravity = GetComponent<AffectedByGravity>();
         overheatBar = GetComponentInChildren<OverheatBar>();
         interactableDetectionZone = GetComponent<DetectionZone>();
+        bar = overheatBar.GetComponent<RectTransform>();
+        overheatBar.gameObject.SetActive(false);
     }
 
     // Start is called before the first frame update
@@ -274,10 +277,14 @@ public class PlayerController : MonoBehaviour
     }
 
     private void SetFacingDirection(Vector2 moveInput) {
-        if (moveInput.x > 0 && !IsFacingRight)
+        if (moveInput.x > 0 && !IsFacingRight) {
             IsFacingRight = true;
-        else if (moveInput.x < 0 && IsFacingRight)
+            bar.localScale = new Vector2 (-bar.localScale.x, bar.localScale.y);
+        }
+        else if (moveInput.x < 0 && IsFacingRight) {
             IsFacingRight = false;
+            bar.localScale = new Vector2 (-bar.localScale.x, bar.localScale.y);
+        }
     }
 
     public void OnRun(InputAction.CallbackContext context)
