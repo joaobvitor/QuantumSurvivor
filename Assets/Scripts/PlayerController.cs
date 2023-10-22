@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
 {
     public UnityEvent<string, float> abilityUsed;
     public UnityEvent<string> abilityUnlocked;
+    public UnityEvent<int> moneyChanged;
 
     [SerializeField]
     private int _money = 0;
@@ -21,6 +22,7 @@ public class PlayerController : MonoBehaviour
             return _money;
         }
         set {
+            moneyChanged?.Invoke(value);
             _money = value;
         }
     }
