@@ -49,8 +49,8 @@ public class Interactable : MonoBehaviour
                 foreach (GameObject enemy in enemiesToActivate)
                     enemy.SetActive(true);
             }
-            if(isUpgradeMachine){
-                UpgradeMenu.open();
+            if(isUpgradeMachine) {
+                UpgradeMenu.Open();
             }
             if (setsDialogueBoxActive) {
                 dialogueBox.GetComponent<DialogueBox>().lines = lines;

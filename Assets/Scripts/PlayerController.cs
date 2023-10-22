@@ -14,6 +14,17 @@ public class PlayerController : MonoBehaviour
     public UnityEvent<string, float> abilityUsed;
     public UnityEvent<string> abilityUnlocked;
 
+    [SerializeField]
+    private int _money = 0;
+    public int Money {
+        get {
+            return _money;
+        }
+        set {
+            _money = value;
+        }
+    }
+
     public float walkSpeed = 5f;
     public float runSpeed = 8f;
     public float speed;

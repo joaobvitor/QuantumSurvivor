@@ -6,6 +6,7 @@ public class FlyingBot : MonoBehaviour
 {
     public float flightSpeed = 2f;
     public float waypointReachedDistance = 0.1f;
+    [SerializeField] private int moneyOnDeath = 5;
     public List<Transform> waypoints;
     public DetectionZone attackZone;
 
@@ -13,6 +14,7 @@ public class FlyingBot : MonoBehaviour
     Rigidbody2D rb;
     Damageable damageable;
     AffectedByTime time;
+    GameObject player;
 
     int waypointNum = 0;
     Transform nextWaypoint;
@@ -50,11 +52,11 @@ public class FlyingBot : MonoBehaviour
         animator = GetComponent<Animator>();
         damageable = GetComponent<Damageable>();
         time = GetComponent<AffectedByTime>();
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     void Start()
     {
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player.GetComponent<Rigidbody2D>().gravityScale < 0) {
             gameObject.transform.localScale = new Vector2(gameObject.transform.localScale.x, -gameObject.transform.localScale.y);
         }
@@ -107,5 +109,10 @@ public class FlyingBot : MonoBehaviour
             if (rb.velocity.x < 0)
                 transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
         }
+    }
+
+    public void OnDeath() {
+        player.GetComponent<PlayerController>().Money += moneyOnDeath;
+        CharacterEvents.characterMoneyChanged.Invoke(player, moneyOnDeath);
     }
 }

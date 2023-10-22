@@ -49,6 +49,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageTextPrefab: {fileID: 7400668810680514101, guid: 1343928ca7262b148bdd465b132fd824, type: 3}
   healthTextPrefab: {fileID: 7400668810680514101, guid: 82e0d14b330df884fa47840941f99765, type: 3}
+  moneyTextPrefab: {fileID: 0}
   gameCanvas: {fileID: 0}
 --- !u!114 &3268188315309155700
 MonoBehaviour:
@@ -210,4 +211,7 @@ MonoBehaviour:
   upgradeMenu: {fileID: 0}
   IsOn: 0
   PauseMenu: {fileID: 6294606984140378526}
-  upgrades: {fileID: 0}
+  playerController: {fileID: 0}
+  upgradedBlackholeRange: 0
+  upgradedTimeStopCooldown: 0
+  upgradedGravitySwitchCooldown: 0

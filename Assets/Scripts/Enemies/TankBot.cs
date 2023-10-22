@@ -7,6 +7,7 @@ public class TankBot : MonoBehaviour
 {
     public float walkAcceleration = 30f;
     public float maxSpeed = 3f;
+    [SerializeField] private int moneyOnDeath = 5;
     public DetectionZone attackZone;
     public DetectionZone cliffDetectionZone;
 
@@ -18,6 +19,7 @@ public class TankBot : MonoBehaviour
 
     AffectedByGravity gravity;
      AffectedByTime time;
+     GameObject player;
 
     public enum WalkableDirection { Right, Left }
 
@@ -85,10 +87,10 @@ public class TankBot : MonoBehaviour
         gravity = GetComponent<AffectedByGravity>();
         walkDirectionVector = new Vector2(-gameObject.transform.localScale.x, 0);
         time = GetComponent<AffectedByTime>();
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     void Start() {
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player.GetComponent<Rigidbody2D>().gravityScale < 0) {
             gameObject.transform.localScale = new Vector2(gameObject.transform.localScale.x, -gameObject.transform.localScale.y);
             rb.gravityScale = -rb.gravityScale;
@@ -134,5 +136,10 @@ public class TankBot : MonoBehaviour
         if (touchingDirections.IsGrounded  && !gravity.OnCooldown) {
             FlipDirection();
         }
+    }
+    
+    public void OnDeath() {
+        player.GetComponent<PlayerController>().Money += moneyOnDeath;
+        CharacterEvents.characterMoneyChanged.Invoke(player, moneyOnDeath);
     }
 }

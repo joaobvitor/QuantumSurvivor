@@ -8,7 +8,7 @@ public class UIManager : MonoBehaviour
 {
     public GameObject damageTextPrefab;
     public GameObject healthTextPrefab;
-
+    public GameObject moneyTextPrefab;
     public Canvas gameCanvas;
 
     private void Awake() {
@@ -24,11 +24,13 @@ public class UIManager : MonoBehaviour
     private void OnEnable() {
         CharacterEvents.characterDamaged += CharacterTookDamage;
         CharacterEvents.characterHealed += CharacterHealed;
+        CharacterEvents.characterMoneyChanged += CharacterMoneyChanged;
     }
 
     private void OnDisable() {
         CharacterEvents.characterDamaged -= CharacterTookDamage;
         CharacterEvents.characterHealed -= CharacterHealed;
+        CharacterEvents.characterMoneyChanged -= CharacterMoneyChanged;
     }
 
     public void CharacterTookDamage(GameObject character, int damageReceived) {
@@ -45,6 +47,14 @@ public class UIManager : MonoBehaviour
         TMP_Text tmpText = Instantiate(healthTextPrefab, spawnPosition, Quaternion.identity, gameCanvas.transform).GetComponent<TMP_Text>();
 
         tmpText.text = healthRestored.ToString();
+    }
+
+    public void CharacterMoneyChanged(GameObject character, int money) {
+        Vector3 spawnPosition = Camera.main.WorldToScreenPoint(character.transform.position);
+
+        TMP_Text tmpText = Instantiate(moneyTextPrefab, spawnPosition, Quaternion.identity, gameCanvas.transform).GetComponent<TMP_Text>();
+
+        tmpText.text = "+" + money.ToString() + " coins";
     }
 
     public void OnExitGame(InputAction.CallbackContext context) {
