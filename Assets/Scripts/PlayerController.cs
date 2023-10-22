@@ -42,6 +42,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     public PauseMenu PauseMenu;
 
+    [SerializeField] private GameObject dialogueBox;
+    [SerializeField] private string[] lines;
+
     public float CurrentMoveSpeed { get
         {
             if (CanMove) {
@@ -148,6 +151,7 @@ public class PlayerController : MonoBehaviour
     Animator animator;
     DetectionZone interactableDetectionZone;
     
+    public Sprite deathSprite;
     private int numCheckpoints = 0;
     
     public GameObject blackholePrefab;
@@ -195,7 +199,10 @@ public class PlayerController : MonoBehaviour
     {
         if(!PauseMenu.isPaused) {
             if (!IsAlive) {
-                Invoke("RespawnPlayer", 2f);
+                GetComponent<SpriteRenderer>().sprite = deathSprite;
+                dialogueBox.GetComponent<DialogueBox>().lines = lines;
+                dialogueBox.SetActive(true);
+                Invoke("RespawnPlayer", 5f);
             }
 
             if (BlackholeIsActive && blackholeCurrentCooldown == 0) {
@@ -362,8 +369,10 @@ public class PlayerController : MonoBehaviour
     public void OnInteract(InputAction.CallbackContext context) {
         if(!PauseMenu.isPaused) {
             if (context.started && IsAlive) {
-                foreach (Collider2D col in interactableDetectionZone.detectedColliders)
-                    col.gameObject.GetComponentInParent<Interactable>()?.DoAction();
+                foreach (Collider2D col in interactableDetectionZone.detectedColliders) {
+                    if (col != null)
+                        col.gameObject.GetComponentInParent<Interactable>()?.DoAction();
+                }
             }
         }
     }

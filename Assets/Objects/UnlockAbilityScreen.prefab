@@ -77,7 +77,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 1555360506, guid: 99f9c0320c62e244bababdefc428194d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -170,6 +170,7 @@ MonoBehaviour:
   unlocksGravitySwitch: 1
   unlocksStopTime: 0
   isDoor: 0
+  isUpgradeMachine: 0
   setsEnemiesActive: 0
   setsDialogueBoxActive: 0
   hasKillCondition: 0
@@ -179,6 +180,7 @@ MonoBehaviour:
   enemiesToActivate: []
   enemiesToKill: []
   conditionDialogueLines: []
+  UpgradeMenu: {fileID: 0}
 --- !u!114 &3290008332902333117
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -207,9 +209,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ee4064ce731caa459f3dc758fb3d757, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isActive: 1
+  setsTriggerActive: 0
+  triggerToActivate: {fileID: 0}
   hasTriggerableOnce: 0
   hasTriggerable: 0
   triggerable: {fileID: 0}
+  hasTriggerableSet: 0
+  triggerableSet: []
   setsEnemiesActive: 0
   enemiesToActivate: []
   hasKillCondition: 0

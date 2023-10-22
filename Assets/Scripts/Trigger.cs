@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Trigger : MonoBehaviour
 {
+    public bool isActive = true;
+    [SerializeField] private bool setsTriggerActive;
+    [SerializeField] private Trigger triggerToActivate;
     [SerializeField] private bool hasTriggerableOnce;
     [SerializeField] private bool hasTriggerable;
     [SerializeField] private Triggerable triggerable;
@@ -22,36 +25,41 @@ public class Trigger : MonoBehaviour
     private bool wasTriggered = false;
 
     private void OnTriggerEnter2D(Collider2D other) {
-        if (hasKillCondition && killConditionMet()) {
-            if (hasTriggerableOnce && !wasTriggered) {
-                triggerable.OnTrigger();
+        if (isActive) {
+            if (hasKillCondition && killConditionMet()) {
+                if (hasTriggerableOnce && !wasTriggered) {
+                    triggerable.OnTrigger();
+                }
+                wasTriggered = true;
             }
-            wasTriggered = true;
-        }
-        else if (!hasKillCondition) {
-            if (hasTriggerableOnce && !wasTriggered) {
-                triggerable.OnTrigger();
-            }
+            else if (!hasKillCondition) {
+                if (hasTriggerableOnce && !wasTriggered) {
+                    triggerable.OnTrigger();
+                }
 
-            if (hasTriggerable) {
-                triggerable.OnTrigger();
-            }
-            
-            if (setsEnemiesActive && !wasTriggered) {
-                foreach (GameObject enemy in enemiesToActivate)
-                    enemy.SetActive(true);
-            }
+                if (hasTriggerable) {
+                    triggerable.OnTrigger();
+                }
+                
+                if (setsEnemiesActive && !wasTriggered) {
+                    foreach (GameObject enemy in enemiesToActivate)
+                        enemy.SetActive(true);
+                }
 
-            if (setsDialogueBoxActive && !wasTriggered) {
-                dialogueBox.GetComponent<DialogueBox>().lines = lines;
-                dialogueBox.SetActive(true);
-            }
-            if (hasTriggerableSet) {
-                foreach (Triggerable trigger in triggerableSet) 
-                    trigger.OnTrigger();
-            }
+                if (setsDialogueBoxActive && !wasTriggered) {
+                    dialogueBox.GetComponent<DialogueBox>().lines = lines;
+                    dialogueBox.SetActive(true);
+                }
+                if (hasTriggerableSet) {
+                    foreach (Triggerable trigger in triggerableSet) 
+                        trigger.OnTrigger();
+                }
+                if (setsTriggerActive) {
+                    triggerToActivate.isActive = true;
+                }
 
-            wasTriggered = true;
+                wasTriggered = true;
+            }
         }
     }
 

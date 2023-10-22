@@ -586,20 +586,28 @@ MonoBehaviour:
   abilityUnlocked:
     m_PersistentCalls:
       m_Calls: []
+  moneyChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  _money: 0
   walkSpeed: 6
   runSpeed: 9
   speed: 0
   jumpImpulse: 17
   gravityCooldown: 0.5
   PauseMenu: {fileID: 0}
+  dialogueBox: {fileID: 0}
+  lines:
+  - As your conscience fades you remember how to [Go back in time]...
   _isMoving: 0
   _isRunning: 0
   _isJumping: 0
   _isFacingRight: 1
   _blackholeIsActive: 0
   blackholeUnlocked: 1
-  gravitySwitchUnlocked: 1
-  stopTimeUnlocked: 1
+  gravitySwitchUnlocked: 0
+  stopTimeUnlocked: 0
+  deathSprite: {fileID: 446905623, guid: 07d95763f5c16e84fb01af1d9a7729f4, type: 3}
   blackholePrefab: {fileID: 6645961308256839148, guid: 8c988b816c396f840be747a86b5b4033, type: 3}
   blackholeMaxHeat: 5
   blackholeHeat: 0
@@ -607,7 +615,9 @@ MonoBehaviour:
   blackholeCurrentCooldown: 0
   blackholeRechargeRate: 1.5
   blackholeRange: 7
-  stopTimeDuration: 3
+  blackholeScale: 0.5
+  gravityHealUpgrade: 0
+  stopTimeDuration: 4
   stopTimeCooldown: 15
   overheatBar: {fileID: 0}
 --- !u!70 &5585646396079231953
@@ -782,10 +792,6 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: f7201e9b-aeb6-4581-9f8a-96b8a5db28ae
     m_ActionName: UI/TrackedDeviceOrientation
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 85e1d5d9-08e2-402a-acab-47c6a3d22ea4
-    m_ActionName: UI/Escape[/Keyboard/escape]
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 4704911983367674160}

@@ -15,6 +15,7 @@ public class Interactable : MonoBehaviour
     [SerializeField] private string[] lines;
     [SerializeField] private Transform doorPosition;
     [SerializeField] private GameObject[] enemiesToActivate;
+    private bool interacted = false;
     [SerializeField] private GameObject[] enemiesToKill;
     [SerializeField] private string[] conditionDialogueLines;
 
@@ -45,9 +46,10 @@ public class Interactable : MonoBehaviour
                 interactionZone.detectedColliders[0].gameObject.GetComponentInParent<PlayerController>().UnlockStopTime();
             if (isDoor)
                 interactionZone.detectedColliders[0].gameObject.transform.position = doorPosition.position;
-            if (setsEnemiesActive) {
+            if (setsEnemiesActive && !interacted) {
                 foreach (GameObject enemy in enemiesToActivate)
                     enemy.SetActive(true);
+                interacted = true;
             }
             if(isUpgradeMachine) {
                 UpgradeMenu.Open();
