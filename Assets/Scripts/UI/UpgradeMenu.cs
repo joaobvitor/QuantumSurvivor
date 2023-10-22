@@ -54,9 +54,10 @@ public class UpgradeMenu : MonoBehaviour
     public void UpgradeBlackholeSize() {
         GetPlayerController();
 
-        if(!upgradedBlackholeSize && playerController.Money >= 50) {
-            playerController.Money -= 50;
+        if(!upgradedBlackholeSize && playerController.Money >= 75) {
+            playerController.Money -= 75;
             playerController.blackholeScale += 1;
+            playerController.extraDamage += 5;
             upgradedBlackholeSize = true;
             AudioSource.PlayClipAtPoint(buySound.clip, gameObject.transform.position, buySound.volume);
         }
@@ -82,8 +83,8 @@ public class UpgradeMenu : MonoBehaviour
     public void UpgradeTimeStopCooldown() {
         GetPlayerController();
 
-        if(!upgradedTimeStopCooldown && playerController.Money >= 130) {
-            playerController.Money -= 130;
+        if(!upgradedTimeStopCooldown && playerController.Money >= 105) {
+            playerController.Money -= 105;
             playerController.stopTimeCooldown -= 5f;
             upgradedTimeStopCooldown = true;
             AudioSource.PlayClipAtPoint(buySound.clip, gameObject.transform.position, buySound.volume);

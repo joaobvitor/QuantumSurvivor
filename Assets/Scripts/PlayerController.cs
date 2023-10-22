@@ -166,6 +166,7 @@ public class PlayerController : MonoBehaviour
     public float blackholeScale = 0f;
     private bool blackholeCall;
     private bool blackholeEnter;
+    public int extraDamage = 0;
 
     public bool gravityHealUpgrade = false;
     
@@ -348,6 +349,7 @@ public class PlayerController : MonoBehaviour
 
                     if (BlackholeIsActive) {
                         blackhole = Instantiate(blackholePrefab,  Input.mousePosition, blackholePrefab.transform.rotation);
+                        blackhole.GetComponent<Attack>().attackDamage += extraDamage;
                         blackhole.transform.localScale = new Vector2(blackhole.transform.localScale.x + blackholeScale,
                                                                     blackhole.transform.localScale.y + blackholeScale);
                     }
