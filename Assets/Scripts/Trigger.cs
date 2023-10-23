@@ -24,6 +24,8 @@ public class Trigger : MonoBehaviour
     [SerializeField] private string[] lines;
     private bool wasTriggered = false;
 
+    [SerializeField] private List<GameObject> pointers;
+
     private void OnTriggerEnter2D(Collider2D other) {
         if (isActive) {
             if (hasKillCondition && killConditionMet()) {
@@ -57,6 +59,11 @@ public class Trigger : MonoBehaviour
                 if (setsTriggerActive) {
                     triggerToActivate.isActive = true;
                 }
+                if (pointers != null)
+                    foreach (var point in pointers)
+                    {
+                        point.SetActive(true);
+                    }
 
                 wasTriggered = true;
             }

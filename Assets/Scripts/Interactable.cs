@@ -21,6 +21,8 @@ public class Interactable : MonoBehaviour
 
     [SerializeField] public UpgradeMenu UpgradeMenu;
 
+    [SerializeField] private GameObject pointer;
+
     DetectionZone interactionZone;
     // Start is called before the first frame update
     void Awake()
@@ -41,7 +43,9 @@ public class Interactable : MonoBehaviour
         }
         else {
             if (unlocksGravitySwitch)
+            {
                 interactionZone.detectedColliders[0].gameObject.GetComponentInParent<PlayerController>().UnlockGravitySwitch();
+            }
             if (unlocksStopTime)
                 interactionZone.detectedColliders[0].gameObject.GetComponentInParent<PlayerController>().UnlockStopTime();
             if (isDoor)
@@ -58,6 +62,8 @@ public class Interactable : MonoBehaviour
                 dialogueBox.GetComponent<DialogueBox>().lines = lines;
                 dialogueBox.SetActive(true);
             }
+            if (pointer != null) 
+                pointer.SetActive(false);
         }
     }
 
