@@ -598,7 +598,7 @@ MonoBehaviour:
   PauseMenu: {fileID: 0}
   dialogueBox: {fileID: 0}
   lines:
-  - As your conscience fades you remember how to [Go back in time]...
+  - As your conscience fades you remember how to [Go Back In Time].
   _isMoving: 0
   _isRunning: 0
   _isJumping: 0
@@ -608,6 +608,7 @@ MonoBehaviour:
   gravitySwitchUnlocked: 0
   stopTimeUnlocked: 0
   deathSprite: {fileID: 446905623, guid: 07d95763f5c16e84fb01af1d9a7729f4, type: 3}
+  numCheckpoints: 1
   blackholePrefab: {fileID: 6645961308256839148, guid: 8c988b816c396f840be747a86b5b4033, type: 3}
   blackholeMaxHeat: 5
   blackholeHeat: 0
@@ -616,6 +617,7 @@ MonoBehaviour:
   blackholeRechargeRate: 1.5
   blackholeRange: 7
   blackholeScale: 0.5
+  extraDamage: 0
   gravityHealUpgrade: 0
   stopTimeDuration: 4
   stopTimeCooldown: 15

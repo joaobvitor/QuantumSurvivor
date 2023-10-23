@@ -152,7 +152,7 @@ public class PlayerController : MonoBehaviour
     DetectionZone interactableDetectionZone;
     
     public Sprite deathSprite;
-    private int numCheckpoints = 0;
+    [SerializeField] private int numCheckpoints = 1;
     
     public GameObject blackholePrefab;
     GameObject blackhole;
@@ -195,7 +195,8 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        if (numCheckpoints > 1)
+            UnlockGravitySwitchOnRespawn();
     }
 
     // Update is called once per frame
@@ -229,7 +230,7 @@ public class PlayerController : MonoBehaviour
     }
 
     private void RespawnPlayer() {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + numCheckpoints);
+        SceneManager.LoadScene(numCheckpoints);
     }
 
     private void BlackholeBehaviour() {
@@ -387,14 +388,25 @@ public class PlayerController : MonoBehaviour
     }
 
     public void UnlockGravitySwitch() {
-        gravitySwitchUnlocked = true;
-        //numCheckpoints++;
-        abilityUnlocked?.Invoke("GravitySwitch");
+        if (!gravitySwitchUnlocked) {
+            gravitySwitchUnlocked = true;
+            numCheckpoints++;
+            abilityUnlocked?.Invoke("GravitySwitch");
+        }
     }
 
     public void UnlockStopTime() {
-        stopTimeUnlocked = true;
-        //numCheckpoints++;
-        abilityUnlocked?.Invoke("StopTime");
+        if (!stopTimeUnlocked) {
+            stopTimeUnlocked = true;
+            numCheckpoints++;
+            abilityUnlocked?.Invoke("StopTime");
+        }
+    }
+
+    public void UnlockGravitySwitchOnRespawn() {
+        if (!gravitySwitchUnlocked) {
+            gravitySwitchUnlocked = true;
+            abilityUnlocked?.Invoke("GravitySwitch");
+        }
     }
 }

@@ -6,6 +6,15 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/GameplayScene.unity
+    path: Assets/Scenes/InitialScene.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
+  - enabled: 1
+    path: Assets/Scenes/RespawnScene.unity
+    guid: 8537a29cc92385644addbe80e3c26139
+  - enabled: 1
+    path: Assets/Scenes/CheckpointOneScene.unity
+    guid: b3a8c3718de411442856299876585c6d
+  - enabled: 1
+    path: Assets/Scenes/CheckpointTwoScene.unity
+    guid: 11064f65ad593154e82e940aaa19f36d
   m_configObjects: {}
