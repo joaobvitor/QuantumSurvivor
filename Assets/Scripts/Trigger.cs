@@ -59,7 +59,7 @@ public class Trigger : MonoBehaviour
                 if (setsTriggerActive) {
                     triggerToActivate.isActive = true;
                 }
-                if (pointers != null)
+                if (pointers != null && !wasTriggered)
                     foreach (var point in pointers)
                     {
                         point.SetActive(true);
